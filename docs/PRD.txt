@@ -1,0 +1,253 @@
+# 🧰 Product Requirements Document (PRD)
+
+## Stack Online Tools
+
+---
+
+## 1. Product Overview
+
+**Stack Online Tools** is a unified, browser-based utility platform that consolidates over 100 online tools for text manipulation, SEO optimization, image processing, development, and productivity.
+It aims to be the **Swiss Army knife for digital professionals** — offering instant, no-login access to tools that are fast, secure, and privacy-first.
+
+---
+
+## 2. Goals and Objectives
+
+* ✅ Provide 100+ client-side tools across 10+ categories
+* ⚡ Achieve sub-1-second first contentful paint
+* 🔐 Ensure privacy-first architecture (client-side processing where possible)
+* 📱 Build a mobile-first, PWA-enabled experience
+* 💎 Deliver modern, clean, and accessible UX adhering to WCAG 2.1 AAA
+
+---
+
+## 3. Target Audience
+
+* Developers & programmers
+* Digital marketers & SEO professionals
+* Designers & content creators
+* Students & general web users
+
+---
+
+## 4. Core Features
+
+| Feature                     | Description                                                                          |
+| --------------------------- | ------------------------------------------------------------------------------------ |
+| 🔍 Universal Search         | Autocomplete search across all tools (fuzzy matching, keyboard shortcut ⌘K / Ctrl+K) |
+| 📂 Categorized Tools        | Tools organized under 10+ categories with cross-tagging                              |
+| ⭐ Favorites                 | Save frequently used tools (stored locally or via Supabase for logged-in users)      |
+| 🕶️ Dark/Light Mode         | Seamless transitions; respects system preferences                                    |
+| ⚙️ Real-time Preview        | Live output updates with debounce (~300ms)                                           |
+| 📋 Copy/Download Actions    | One-click copy and download with animations                                          |
+| 📊 Usage Analytics          | Track popular tools (Matomo + Supabase)                                              |
+| 💬 Feedback System          | In-tool bug and suggestion forms                                                     |
+| 🧩 Tool Plugin Architecture | Modular system to easily add new tools                                               |
+
+---
+
+## 5. Functional Requirements
+
+### 5.1 Tool System
+
+* Each tool is registered as a modular component (`OnlineTool` interface).
+* Tools can have:
+
+  * **Client-side processing** (default)
+  * **Optional server-side processing** (via Edge Function)
+* Each tool includes:
+
+  * `metadata` (name, description, icon)
+  * `schema` (Zod validation)
+  * `component` (React UI)
+  * `clientAction` and/or `serverAction`
+
+### 5.2 User Data
+
+* Anonymous users: `localStorage` for preferences, history, and favorites
+* Registered users: Supabase-managed user preferences, analytics
+
+### 5.3 Performance
+
+* Code-split by category
+* Web workers for heavy computation (e.g., image compression, diff check)
+* Static site generation (SSG) for tool landing pages
+* <100KB initial JS bundle
+
+---
+
+## 6. Non-Functional Requirements
+
+| Area                | Requirement                                               |
+| ------------------- | --------------------------------------------------------- |
+| **Performance**     | <1s First Contentful Paint, <100KB JS, lazy loading       |
+| **Scalability**     | Horizontally scalable via Cloudflare CDN & Edge Functions |
+| **Security**        | Strict CSP, HTTPS-only, DOMPurify for sanitization        |
+| **Accessibility**   | WCAG 2.1 AAA, keyboard navigable, ARIA-compliant          |
+| **Privacy**         | No permanent data storage; 24h temporary file retention   |
+| **Maintainability** | Modular “tool plugin” architecture for easy addition      |
+| **Availability**    | 99.9% uptime target                                       |
+| **Analytics**       | Privacy-friendly Matomo + Supabase event tracking         |
+
+---
+
+## 7. Design Specifications 🎨
+
+### 7.1 Layout System
+
+| Device                  | Grid Layout                               |
+| ----------------------- | ----------------------------------------- |
+| **Mobile (0–640px)**    | Single column; cards stacked vertically   |
+| **Tablet (641–1024px)** | Two columns; sidebar collapsible          |
+| **Desktop (1025px+)**   | Three-column layout; sidebar persistent   |
+| **Global Header**       | Sticky; collapses on scroll               |
+| **Search Bar**          | Fixed top-right, expands on focus         |
+| **Footer**              | Compact, with minimal links and copyright |
+
+**Grid Behavior:**
+
+* Uses **Tailwind’s responsive grid** system
+* Gutter spacing: `1rem` mobile, `1.5rem` tablet, `2rem` desktop
+* Max container width: `1200px`
+
+---
+
+### 7.2 Typography
+
+| Element              | Font           | Size    | Weight  | Notes                        |
+| -------------------- | -------------- | ------- | ------- | ---------------------------- |
+| **Body Text**        | Inter          | 16px    | 400     | Default font                 |
+| **Headings (H1–H3)** | Inter          | 24–36px | 600–700 | Scales responsively          |
+| **Buttons**          | Inter          | 15px    | 500     | Uppercase, tracking-wide     |
+| **Monospace Inputs** | JetBrains Mono | 14px    | 400     | Used for code/text utilities |
+
+---
+
+### 7.3 Color System
+
+| Token              | Light Mode | Dark Mode | Usage                   |
+| ------------------ | ---------- | --------- | ----------------------- |
+| **Primary**        | `#2563EB`  | `#3B82F6` | Buttons, highlights     |
+| **Secondary**      | `#64748B`  | `#94A3B8` | Outlined buttons, icons |
+| **Background**     | `#FFFFFF`  | `#0F172A` | Base background         |
+| **Surface**        | `#F8FAFC`  | `#1E293B` | Cards, modals           |
+| **Text Primary**   | `#0F172A`  | `#F8FAFC` | Body text               |
+| **Text Secondary** | `#475569`  | `#CBD5E1` | Subtext, placeholders   |
+| **Success**        | `#22C55E`  | `#4ADE80` | Copy confirmations      |
+| **Error**          | `#EF4444`  | `#F87171` | Validation errors       |
+| **Warning**        | `#FACC15`  | `#FDE047` | Warnings, notices       |
+
+---
+
+### 7.4 Button States
+
+| State        | Visual                                                         |
+| ------------ | -------------------------------------------------------------- |
+| **Default**  | Solid background (`bg-primary text-white`)                     |
+| **Hover**    | Slight lift (`translateY(-2px)`, shadow `md`, brightness +10%) |
+| **Active**   | Darkened background, no lift                                   |
+| **Disabled** | `opacity-50`, cursor `not-allowed`                             |
+| **Focus**    | 2px solid `outline-primary`, shadow glow                       |
+| **Loading**  | Inline spinner + disabled state                                |
+
+---
+
+### 7.5 Form Components
+
+* **Inputs:** Rounded (`0.375rem`), border `gray-300`, focus glow
+* **Textareas:** Monospace, resizable vertical only, min-height `200px`
+* **Selects:** Custom dropdowns styled via shadcn/ui
+* **Switches/Toggles:** Animated transition with Framer Motion
+* **Checkboxes:** Rounded corners, 2px border, filled background on active
+
+---
+
+### 7.6 Card Components
+
+| Property      | Value                                                              |
+| ------------- | ------------------------------------------------------------------ |
+| Border        | `1px solid gray-200 (light)` / `gray-700 (dark)`                   |
+| Border Radius | `0.5rem`                                                           |
+| Padding       | `1.5rem`                                                           |
+| Hover         | Shadow increase, slight scale-up (1.02), border color to `primary` |
+| Icon          | Color shift on hover to accent                                     |
+| Animation     | 150ms cubic-bezier transition                                      |
+
+---
+
+### 7.7 Responsive & Motion Guidelines
+
+* **Touch Targets:** ≥44×44px
+* **Animations:** ≤200ms, cubic-bezier ease for smooth feel
+* **Reduced Motion Mode:** Disabled transitions when user prefers reduced motion
+* **Modals:**
+
+  * Desktop: centered overlay
+  * Mobile: bottom-sheet style
+* **Dark/Light Switch:** 200ms crossfade using CSS variables
+
+---
+
+## 8. Technical Architecture Summary
+
+| Layer            | Technology                            | Purpose                            |
+| ---------------- | ------------------------------------- | ---------------------------------- |
+| **Frontend**     | Next.js 14 + Tailwind CSS + shadcn/ui | Core interface                     |
+| **State**        | Zustand                               | Lightweight global store           |
+| **Database**     | Supabase (PostgreSQL)                 | Tools, analytics, user preferences |
+| **Cache**        | Redis (Upstash)                       | API caching, rate limits           |
+| **Analytics**    | Matomo                                | Privacy-focused metrics            |
+| **Hosting**      | Vercel / Cloudflare Pages             | Scalable edge hosting              |
+| **CI/CD**        | GitHub Actions                        | Auto deploy + tests                |
+| **File Storage** | Cloudflare R2                         | Temporary uploads                  |
+
+---
+
+## 9. Success Metrics
+
+| Metric                             | Target               |
+| ---------------------------------- | -------------------- |
+| **Load Time (FCP)**                | <1s                  |
+| **Core Web Vitals**                | >90 score            |
+| **Uptime**                         | 99.9%                |
+| **Conversion Rate (Free→Premium)** | 3–5%                 |
+| **Tool Engagement**                | Avg. 3 tools/session |
+| **User Retention (30-day)**        | 40%                  |
+
+---
+
+## 10. Roadmap (Phased Delivery)
+
+| Phase                   | Duration                                        | Deliverables |
+| ----------------------- | ----------------------------------------------- | ------------ |
+| **MVP (1–3 months)**    | Core infra, 30 tools, search, dark mode         |              |
+| **Growth (4–6 months)** | 100+ tools, Supabase auth, analytics, favorites |              |
+| **Scale (7–12 months)** | Batch processing, API access, browser extension |              |
+
+---
+
+## 11. Risks & Mitigations
+
+| Risk                    | Mitigation                          |
+| ----------------------- | ----------------------------------- |
+| Performance bottlenecks | Use Web Workers, code-splitting     |
+| API abuse               | Redis-based rate limiting           |
+| UX inconsistency        | Centralized design system           |
+| Tool complexity growth  | Plugin architecture for scalability |
+| Privacy concerns        | Client-side processing by default   |
+
+---
+
+## 12. Approval & Ownership
+
+| Role               | Name           | Responsibility                             |
+| ------------------ | -------------- | ------------------------------------------ |
+| **Product Owner**  | Joseph Twumasi | Vision, roadmap, prioritization            |
+| **Tech Lead**      | TBD            | Architecture, implementation strategy      |
+| **Frontend Dev**   | TBD            | Next.js & Tailwind development             |
+| **UI/UX Designer** | TBD            | Component library, design tokens           |
+| **QA Engineer**    | TBD            | Testing, accessibility, performance audits |
+
+---
+
+
