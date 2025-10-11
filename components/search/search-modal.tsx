@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Fuse from "fuse.js";
 import { Search } from "lucide-react";
 import { toolsMetadata } from "@/lib/tool-registry";
+import { ToolMetadata } from "@/types/tool";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import * as Icons from "lucide-react";
@@ -17,7 +18,7 @@ interface SearchModalProps {
 
 export function SearchModal({ open, onOpenChange }: SearchModalProps) {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<any[]>([]);
+  const [results, setResults] = useState<{ item: ToolMetadata; refIndex: number; score?: number }[]>([]);
   const router = useRouter();
 
   // Initialize Fuse.js for fuzzy search (memoized to prevent recreating on every render)
@@ -40,7 +41,7 @@ export function SearchModal({ open, onOpenChange }: SearchModalProps) {
       }
 
       const searchResults = fuse.search(searchQuery);
-      setResults(searchResults.map((result) => result.item).slice(0, 8));
+      setResults(searchResults.slice(0, 8));
     },
     [fuse]
   );
@@ -88,7 +89,8 @@ export function SearchModal({ open, onOpenChange }: SearchModalProps) {
               </div>
             ) : (
               <div className="space-y-0">
-                {results.map((tool) => {
+                {results.map((result) => {
+                  const tool = result.item;
                   const Icon = getIcon(tool.icon);
                   return (
                     <button

@@ -2,8 +2,15 @@
 
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import Link from "next/link";
+import { ReactNode } from "react";
 
-const faqs = [
+interface FAQ {
+  question: string;
+  answer: string | ReactNode;
+}
+
+const faqs: FAQ[] = [
   {
     question: "Is Stack Online Tools really free?",
     answer: "Absolutely! All our tools are completely free to use. We believe in providing valuable utilities without any cost barriers. You can use any tool as many times as you need without restrictions."
@@ -25,15 +32,12 @@ const faqs = [
     answer: (
       <>
         Absolutely! We love hearing from our users. You can suggest new tools through our{" "}
-        <a
-          href="/suggest-tool"
-          className="text-blue-600 hover:underline font-medium"
-        >
-          'Suggest a Tool'
-        </a>{" "}
-        section. We regularly add new utilities based on user feedback and needs.
+        <Link href="/suggest" className="text-blue-600 hover:text-blue-800 underline font-medium">
+          Suggest a Tool
+        </Link>{" "}
+        section. We regularly add new utilities based on user feedback and needs
       </>
-    ),
+    )
   },
   {
     question: "What browsers are supported?",
@@ -87,9 +91,9 @@ export function FAQSection() {
                 }`}
               >
                 <div className="px-6 pb-4">
-                  <p className="text-gray-600 leading-relaxed">
+                  <div className="text-gray-600 leading-relaxed">
                     {faq.answer}
-                  </p>
+                  </div>
                 </div>
               </div>
             </div>

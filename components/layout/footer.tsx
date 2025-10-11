@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Wrench, Facebook, Twitter, Github } from "lucide-react";
+import { Facebook, Twitter, Github } from "lucide-react";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
