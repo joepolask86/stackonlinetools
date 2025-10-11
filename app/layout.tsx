@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Manrope, Outfit } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import { commonMetadata } from "@/lib/metadata";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -21,34 +22,45 @@ const outfit = Outfit({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "Stack Online Tools - 100+ Free Online Utilities",
-  description: "All-in-one online toolbox with 100+ free utilities for text manipulation, SEO, coding, image processing, and more. Fast, secure, and privacy-first.",
-  keywords: "online tools, text converter, base64, json formatter, image tools, seo tools, developer tools",
-  authors: [{ name: "Joseph Twumasi" }],
-  icons: {
-    icon: [
-      { url: "/assets/img/favicon.ico" },
-      { url: "/assets/img/icon-192x192.png", sizes: "192x192", type: "image/png" },
-    ],
-    apple: [
-      { url: "/assets/img/icon-180x180.png", sizes: "180x180", type: "image/png" },
-    ],
-  },
-  openGraph: {
-    title: "Stack Online Tools - 100+ Free Online Utilities",
-    description: "Swiss Army knife for digital professionals. 100+ tools across 10+ categories.",
-    type: "website",
-  },
-};
+export const metadata: Metadata = commonMetadata.home;
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Stack Online Tools",
+    "description": "100+ FREE online utilities for text manipulation, SEO, coding, image processing, and more. Fast, secure, and privacy-first.",
+    "applicationCategory": "WebApplication",
+    "operatingSystem": "Web Browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "Stack Online Tools Team"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Stack Online Tools"
+    }
+  };
+
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
+          }}
+        />
+      </head>
       <body className={`${inter.variable} ${manrope.variable} ${outfit.variable} font-sans antialiased`}>
         {children}
         <Toaster />

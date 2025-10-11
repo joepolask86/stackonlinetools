@@ -7,7 +7,7 @@ export function Footer() {
   return (
     <footer className="border-t bg-white">
       <div className="max-w-7xl mx-auto px-6 lg:px-12 py-12 pb-8  ">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
+        <div className="grid grid-cols-1 gap-6 sm:gap-12 md:grid-cols-4">
           {/* Brand */}
           <div className="space-y-4 md:col-span-1">
             <Link href="/" className="flex items-center">
@@ -110,7 +110,7 @@ export function Footer() {
               <Facebook className="h-5 w-5" />
             </Link>
             <Link
-              href="https://twitter.com"
+              href="https://twitter.com/stackonlinetools"
               target="_blank"
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-primary transition-colors p-2 rounded-lg hover:bg-gray-100"

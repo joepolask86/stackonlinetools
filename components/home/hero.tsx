@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
@@ -45,14 +46,13 @@ export function Hero() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-            <Button
-              size="lg"
-              className="w-full sm:w-auto text-base h-12 px-8 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg shadow-blue-500/30 transition-all duration-200"
-              onClick={scrollToToolCategories}
+            <Link
+              href="/tools"
+              className="flex items-center justify-center w-200 sm:w-auto text-base text-white h-12 px-8 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg shadow-blue-500/30 transition-all duration-200"
             >
               Explore Tools
               <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
+            </Link>
           </div>
 
         </div>

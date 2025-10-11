@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Menu, ChevronDown, LogIn } from "lucide-react";
+import { Menu, ChevronDown, LogIn, Search } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { MobileNav } from "./mobile-nav";
 import { SearchModal, useSearchModal } from "@/components/search/search-modal";
@@ -71,8 +71,8 @@ export function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 w-full bg-white shadow-sm">
-        <div className="w-full flex h-16 items-center justify-between px-8 lg:px-16 xl:px-24">
+      <header className="sticky top-0 z-50 w-full bg-white shadow-sm shadow-indigo-200">
+        <div className="w-full flex h-16 items-center justify-between px-4 md:px-8">
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <img 
@@ -83,13 +83,13 @@ export function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8 text-md font-medium">
-            <button
-              onClick={() => scrollToSection('category-tools-section')}
-              className="transition-colors py-2 hover:text-primary text-foreground/80"
+          <nav className="hidden md:flex items-center space-x-8 text-lg">
+            <Link
+              href="/tools"
+              className="transition-colors py-2 hover:text-primary text-foreground/90"
             >
               All Tools
-            </button>
+            </Link>
             
             {/* Categories Dropdown */}
             <div 
@@ -99,7 +99,7 @@ export function Header() {
               onMouseLeave={handleMouseLeave}
             >
               <button
-                className="flex items-center py-4 gap-1 transition-colors hover:text-primary text-foreground/80"
+                className="flex items-center py-4 gap-1 transition-colors hover:text-primary text-foreground/90"
               >
                 Categories
                 <ChevronDown className={`h-4 w-4 transition-transform ${categoriesOpen ? 'rotate-180' : ''}`} />
@@ -138,13 +138,13 @@ export function Header() {
             
             <Link
               href="/suggest"
-              className="transition-colors text-orange-600 hover:text-indigo-600 text-foreground/80"
+              className="transition-colors text-orange-600 hover:text-indigo-600"
             >
               Suggest a Tool
             </Link>
             <button
               onClick={() => scrollToSection('faq-section')}
-              className="transition-colors hover:text-indigo-600 text-foreground/80"
+              className="transition-colors hover:text-indigo-600 text-foreground/90"
             >
               FAQs
             </button>
@@ -152,6 +152,13 @@ export function Header() {
 
           {/* Actions */}
           <div className="flex items-center space-x-3">
+            {/* Search Button */}
+            <button
+              className="hidden md:inline-flex p-2 py-1.5 bg-gray-200/20 border border-gray-200 rounded-full invert-shadow text-sm"
+              onClick={() => setOpen(true)}
+            >
+              <Search className="h-5 w-5 text-foreground/80 mr-1" /> Ctrl K
+            </button>
           
             <Button
               size="lg"
@@ -163,7 +170,16 @@ export function Header() {
             
             <Link 
               href="#"
-              className="md:hidden h-8 w-8 p-0 flex items-center justify-center" 
+              className="md:hidden flex items-center justify-center" 
+              aria-label="Search"
+              onClick={() => setOpen(true)}
+            >
+              <Search className="h-6 w-6 text-gray-800" />
+            </Link>
+            
+            <Link 
+              href="#"
+              className="md:hidden h-8 w-8 flex items-center justify-center ml-0" 
               aria-label="Sign in"
             >
               <LogIn className="h-6 w-6 text-gray-800" />

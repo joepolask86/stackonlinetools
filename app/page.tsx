@@ -7,6 +7,9 @@ import { FAQSection } from "@/components/home/faq-section";
 import { SuggestToolSection } from "@/components/home/suggest-tool-section";
 import { Footer } from "@/components/layout/footer";
 import { getToolsByCategory } from "@/lib/tool-registry";
+import { commonMetadata } from "@/lib/metadata";
+
+export const metadata = commonMetadata.home;
 
 export default function HomePage() {
   const textTools = getToolsByCategory("text");

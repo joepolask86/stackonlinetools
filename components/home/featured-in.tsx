@@ -10,7 +10,7 @@ export function FeaturedIn() {
   ];
 
   return (
-    <section className="bg-gradient-to-br from-blue-50 to-blue-100 py-8">
+    <section className="hidden md:block bg-gradient-to-br from-blue-50 to-blue-100 py-8">
       <div className="flex items-center justify-center max-w-7xl mx-auto px-6 lg:px-12">
         <p className="text-center text-md font-semibold tracking-wider text-blue-500 mr-6 opacity-[.50]">
           Featured In:
@@ -26,7 +26,7 @@ export function FeaturedIn() {
                 alt={feature.name}
                 width={feature.width}
                 height={24}
-                className="opacity-[.50] hover:opacity-32 transition-opacity duration-200"
+                className="w-34 h-auto opacity-[.50] hover:opacity-32 transition-opacity duration-200"
               />
             </div>
           ))}

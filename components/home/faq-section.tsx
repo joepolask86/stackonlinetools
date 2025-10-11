@@ -22,7 +22,18 @@ const faqs = [
   },
   {
     question: "Can I suggest new tools?",
-    answer: "Absolutely! We love hearing from our users. You can suggest new tools through our 'Suggest a Tool' section. We regularly add new utilities based on user feedback and needs."
+    answer: (
+      <>
+        Absolutely! We love hearing from our users. You can suggest new tools through our{" "}
+        <a
+          href="/suggest-tool"
+          className="text-blue-600 hover:underline font-medium"
+        >
+          'Suggest a Tool'
+        </a>{" "}
+        section. We regularly add new utilities based on user feedback and needs.
+      </>
+    ),
   },
   {
     question: "What browsers are supported?",
