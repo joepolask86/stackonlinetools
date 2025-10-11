@@ -9,6 +9,7 @@ import { SearchModal, useSearchModal } from "@/components/search/search-modal";
 import { categories } from "@/lib/tool-registry";
 import * as Icons from "lucide-react";
 import { LucideIcon } from "lucide-react";
+import Image from "next/image";
 
 export function Header() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
@@ -75,11 +76,7 @@ export function Header() {
         <div className="w-full flex h-16 items-center justify-between px-4 md:px-8">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <img 
-              src="/assets/img/logo-620x180.png" 
-              alt="Stack Online Tools Logo" 
-              className="h-12"
-            />
+            <Image src="/assets/img/logo-620x180.png" alt="Stack Online Tools Logo" width={140} height={36} />
           </Link>
 
           {/* Desktop Navigation */}

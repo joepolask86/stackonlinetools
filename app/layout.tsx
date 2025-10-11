@@ -3,24 +3,13 @@ import { Inter, Manrope, Outfit } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { commonMetadata } from "@/lib/metadata";
+import Script from "next/script";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap", });
 
-const manrope = Manrope({
-  subsets: ["latin"],
-  variable: "--font-manrope",
-  display: "swap",
-});
+const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope", display: "swap", });
 
-const outfit = Outfit({
-  subsets: ["latin"],
-  variable: "--font-outfit",
-  display: "swap",
-});
+const outfit = Outfit({subsets: ["latin"], variable: "--font-outfit", display: "swap", });
 
 export const metadata: Metadata = commonMetadata.home;
 
@@ -53,17 +42,18 @@ export default function RootLayout({
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
-          }}
-        />
-      </head>
       <body className={`${inter.variable} ${manrope.variable} ${outfit.variable} font-sans antialiased`}>
         {children}
         <Toaster />
+        
+        {/* JSON-LD Schema - Next.js automatically places this in <head> */}
+        <Script
+          id="json-ld-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd),
+          }}
+        />
       </body>
     </html>
   );

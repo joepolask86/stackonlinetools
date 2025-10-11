@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Facebook, Twitter, Github } from "lucide-react";
+import Image from "next/image";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -11,11 +12,7 @@ export function Footer() {
           {/* Brand */}
           <div className="space-y-4 md:col-span-1">
             <Link href="/" className="flex items-center">
-              <img 
-                src="/assets/img/logo-620x180.png" 
-                alt="Stack Online Tools Logo" 
-                className="h-8"
-              />
+              <Image src="/assets/img/logo-620x180.png" alt="Stack Online Tools Logo" width={140} height={36} />
             </Link>
             <p className="text-sm text-muted-foreground max-w-xs">
               Your all-in-one online toolbox. 100+ free tools for developers, marketers, and creators.

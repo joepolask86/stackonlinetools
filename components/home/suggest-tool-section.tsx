@@ -24,7 +24,7 @@ export function SuggestToolSection() {
           </p>
           
           <Button asChild
-            className="bg-gray-900 hover:bg-gray-800 text-white px-8 py-6 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-200"
+            className="bg-orange-600 hover:bg-orange-700 text-white px-8 py-6 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-200"
           >
             <Link href="/suggest">
               Suggest a Tool

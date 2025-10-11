@@ -1,20 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
 export function Hero() {
-
-  const scrollToToolCategories = () => {
-    const element = document.getElementById('tool-categories-section');
-    if (element) {
-      element.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
-  };
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-blue-100 via-white to-indigo-100 py-16 sm:py-32">

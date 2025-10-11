@@ -13,11 +13,11 @@ export function generateMetadata(config: MetadataConfig): Metadata {
     title,
     description,
     url,
-    image = "/assets/img/logo-620x180.png",
+    image = "/assets/img/stackonlinetools-og-card.png",
     noIndex = false,
   } = config;
 
-  const baseUrl = "https://stackonlinetools.com";
+  const baseUrl = "http://localhost:3000";
   const fullUrl = url ? `${baseUrl}${url}` : baseUrl;
   const imageUrl = image.startsWith("http") ? image : `${baseUrl}${image}`;
 
@@ -60,13 +60,9 @@ export function generateMetadata(config: MetadataConfig): Metadata {
     },
     icons: {
       icon: [
-        { url: "/assets/img/favicon.ico", rel: "icon" },
         { url: "/assets/img/icon-192x192.png", sizes: "192x192", rel: "icon" },
         { url: "/assets/img/icon-180x180.png", sizes: "180x180", rel: "apple-touch-icon" },
-      ],
-      apple: [
-        { url: "/assets/img/icon-180x180.png", sizes: "180x180", rel: "apple-touch-icon" },
-      ],
+      ]
     },
   };
 }
