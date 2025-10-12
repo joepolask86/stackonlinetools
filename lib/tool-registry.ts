@@ -1,4 +1,4 @@
-import { ToolMetadata, CategoryInfo, ToolCategory } from "@/types/tool";
+import { ToolMetadata, CategoryInfo, ToolCategory, ToolStatus } from "@/types/tool";
 
 /**
  * Tool registry - Central source of truth for all tools
@@ -14,6 +14,7 @@ export const toolsMetadata: ToolMetadata[] = [
     subcategory: "Text Transformation",
     tags: ["text", "convert", "case", "uppercase", "lowercase"],
     icon: "Type",
+    status: "implemented",
     isTrending: true,
   },
   {
@@ -25,6 +26,7 @@ export const toolsMetadata: ToolMetadata[] = [
     subcategory: "Text Transformation",
     tags: ["word", "count", "character", "reading time"],
     icon: "FileText",
+    status: "implemented",
   },
   {
     id: "text-diff",
@@ -35,6 +37,7 @@ export const toolsMetadata: ToolMetadata[] = [
     subcategory: "Text Transformation",
     tags: ["diff", "compare", "difference", "merge"],
     icon: "GitCompare",
+    status: "planned",
   },
   {
     id: "lorem-ipsum",
@@ -45,6 +48,7 @@ export const toolsMetadata: ToolMetadata[] = [
     subcategory: "Text Transformation",
     tags: ["lorem", "ipsum", "placeholder", "dummy text"],
     icon: "Paragraph",
+    status: "planned",
   },
   
   // String & List Utilities
@@ -57,6 +61,7 @@ export const toolsMetadata: ToolMetadata[] = [
     subcategory: "String & List Utilities",
     tags: ["list", "random", "shuffle", "randomize"],
     icon: "Shuffle",
+    status: "planned",
   },
   {
     id: "list-to-csv",
@@ -67,6 +72,7 @@ export const toolsMetadata: ToolMetadata[] = [
     subcategory: "String & List Utilities",
     tags: ["list", "csv", "comma", "separated"],
     icon: "List",
+    status: "planned",
   },
   {
     id: "csv-to-list",
@@ -77,6 +83,7 @@ export const toolsMetadata: ToolMetadata[] = [
     subcategory: "String & List Utilities",
     tags: ["csv", "list", "comma", "convert"],
     icon: "ListOrdered",
+    status: "planned",
   },
   {
     id: "number-list-generator",
@@ -87,6 +94,7 @@ export const toolsMetadata: ToolMetadata[] = [
     subcategory: "String & List Utilities",
     tags: ["number", "list", "generate", "sequence"],
     icon: "Hash",
+    status: "planned",
   },
   {
     id: "split-text",
@@ -97,6 +105,7 @@ export const toolsMetadata: ToolMetadata[] = [
     subcategory: "String & List Utilities",
     tags: ["split", "text", "delimiter", "regex"],
     icon: "Scissors",
+    status: "planned",
   },
   {
     id: "merge-lists",
@@ -107,6 +116,7 @@ export const toolsMetadata: ToolMetadata[] = [
     subcategory: "String & List Utilities",
     tags: ["merge", "list", "combine", "union"],
     icon: "Merge",
+    status: "planned",
   },
   {
     id: "list-item-counter",
@@ -117,6 +127,7 @@ export const toolsMetadata: ToolMetadata[] = [
     subcategory: "String & List Utilities",
     tags: ["count", "list", "frequency", "unique"],
     icon: "BarChart3",
+    status: "planned",
   },
   {
     id: "prefix-suffix-tool",
@@ -127,6 +138,7 @@ export const toolsMetadata: ToolMetadata[] = [
     subcategory: "String & List Utilities",
     tags: ["prefix", "suffix", "text", "add"],
     icon: "Plus",
+    status: "planned",
   },
   
   // Encoding Tools
@@ -138,6 +150,7 @@ export const toolsMetadata: ToolMetadata[] = [
     category: "encoding",
     tags: ["base64", "encode", "decode", "encryption"],
     icon: "Binary",
+    status: "implemented",
     isTrending: true,
   },
   {
@@ -148,6 +161,7 @@ export const toolsMetadata: ToolMetadata[] = [
     category: "encoding",
     tags: ["url", "encode", "decode", "percent"],
     icon: "Link",
+    status: "planned",
   },
   {
     id: "html-entity",
@@ -157,6 +171,7 @@ export const toolsMetadata: ToolMetadata[] = [
     category: "encoding",
     tags: ["html", "entity", "encode", "escape"],
     icon: "Code2",
+    status: "planned",
   },
   {
     id: "jwt-decoder",
@@ -166,6 +181,7 @@ export const toolsMetadata: ToolMetadata[] = [
     category: "encoding",
     tags: ["jwt", "token", "decode", "auth"],
     icon: "Key",
+    status: "planned",
   },
   {
     id: "qr-code",
@@ -175,6 +191,7 @@ export const toolsMetadata: ToolMetadata[] = [
     category: "encoding",
     tags: ["qr", "code", "generate", "barcode"],
     icon: "QrCode",
+    status: "planned",
   },
   {
     id: "hash-generator",
@@ -184,6 +201,7 @@ export const toolsMetadata: ToolMetadata[] = [
     category: "encoding",
     tags: ["hash", "md5", "sha", "checksum"],
     icon: "Hash",
+    status: "planned",
   },
   {
     id: "uuid-generator",
@@ -193,6 +211,7 @@ export const toolsMetadata: ToolMetadata[] = [
     category: "encoding",
     tags: ["uuid", "guid", "generate", "unique"],
     icon: "Fingerprint",
+    status: "planned",
   },
   
   // JSON & Data Tools
@@ -204,6 +223,7 @@ export const toolsMetadata: ToolMetadata[] = [
     category: "json",
     tags: ["json", "format", "validate", "beautify"],
     icon: "Braces",
+    status: "implemented",
     isTrending: true,
   },
   {
@@ -214,6 +234,7 @@ export const toolsMetadata: ToolMetadata[] = [
     category: "json",
     tags: ["json", "csv", "convert", "export"],
     icon: "FileJson",
+    status: "planned",
   },
   {
     id: "csv-to-json",
@@ -223,6 +244,7 @@ export const toolsMetadata: ToolMetadata[] = [
     category: "json",
     tags: ["csv", "json", "convert", "import"],
     icon: "Table",
+    status: "planned",
   },
   
   // Code Tools
@@ -234,6 +256,7 @@ export const toolsMetadata: ToolMetadata[] = [
     category: "code",
     tags: ["code", "format", "beautify", "prettier"],
     icon: "Code",
+    status: "planned",
   },
   {
     id: "code-minifier",
@@ -243,6 +266,7 @@ export const toolsMetadata: ToolMetadata[] = [
     category: "code",
     tags: ["minify", "compress", "optimize"],
     icon: "FileCode",
+    status: "planned",
   },
   {
     id: "regex-tester",
@@ -252,6 +276,7 @@ export const toolsMetadata: ToolMetadata[] = [
     category: "code",
     tags: ["regex", "test", "pattern", "match"],
     icon: "Search",
+    status: "planned",
   },
   {
     id: "color-picker",
@@ -261,6 +286,7 @@ export const toolsMetadata: ToolMetadata[] = [
     category: "code",
     tags: ["color", "picker", "hex", "rgb"],
     icon: "Palette",
+    status: "planned",
   },
   
   // SEO Tools
@@ -272,6 +298,7 @@ export const toolsMetadata: ToolMetadata[] = [
     category: "seo",
     tags: ["meta", "seo", "og", "twitter"],
     icon: "Tags",
+    status: "planned",
   },
   {
     id: "slug-generator",
@@ -281,6 +308,7 @@ export const toolsMetadata: ToolMetadata[] = [
     category: "seo",
     tags: ["slug", "url", "seo", "permalink"],
     icon: "Link2",
+    status: "planned",
   },
 ];
 
@@ -293,42 +321,42 @@ export const categories: CategoryInfo[] = [
     name: "Text Tools",
     description: "Transform, analyze, and manipulate text",
     icon: "Type",
-    toolCount: toolsMetadata.filter((t) => t.category === "text").length,
+    toolCount: toolsMetadata.filter((t) => t.category === "text" && t.status === "implemented").length,
   },
   {
     id: "string-list",
     name: "String & List Utilities",
     description: "Manipulate lists, strings, and data structures",
     icon: "List",
-    toolCount: toolsMetadata.filter((t) => t.category === "string-list").length,
+    toolCount: toolsMetadata.filter((t) => t.category === "string-list" && t.status === "implemented").length,
   },
   {
     id: "encoding",
     name: "Encoding & Decoding",
     description: "Encode, decode, and hash data",
     icon: "Binary",
-    toolCount: toolsMetadata.filter((t) => t.category === "encoding").length,
+    toolCount: toolsMetadata.filter((t) => t.category === "encoding" && t.status === "implemented").length,
   },
   {
     id: "json",
     name: "JSON & Data",
     description: "Format, convert, and validate data",
     icon: "Braces",
-    toolCount: toolsMetadata.filter((t) => t.category === "json").length,
+    toolCount: toolsMetadata.filter((t) => t.category === "json" && t.status === "implemented").length,
   },
   {
     id: "code",
     name: "Code & Developer",
     description: "Format, minify, and test code",
     icon: "Code",
-    toolCount: toolsMetadata.filter((t) => t.category === "code").length,
+    toolCount: toolsMetadata.filter((t) => t.category === "code" && t.status === "implemented").length,
   },
   {
     id: "seo",
     name: "SEO & Marketing",
     description: "Optimize content for search engines",
     icon: "TrendingUp",
-    toolCount: toolsMetadata.filter((t) => t.category === "seo").length,
+    toolCount: toolsMetadata.filter((t) => t.category === "seo" && t.status === "implemented").length,
   },
   {
     id: "markdown",
@@ -389,10 +417,17 @@ export function getToolsByCategory(category: ToolCategory): ToolMetadata[] {
 }
 
 /**
+ * Get implemented tools by category
+ */
+export function getImplementedToolsByCategory(category: ToolCategory): ToolMetadata[] {
+  return toolsMetadata.filter((tool) => tool.category === category && tool.status === "implemented");
+}
+
+/**
  * Get trending tools
  */
 export function getTrendingTools(): ToolMetadata[] {
-  return toolsMetadata.filter((tool) => tool.isTrending);
+  return toolsMetadata.filter((tool) => tool.isTrending && tool.status === "implemented");
 }
 
 /**
@@ -402,9 +437,10 @@ export function searchTools(query: string): ToolMetadata[] {
   const lowercaseQuery = query.toLowerCase();
   return toolsMetadata.filter(
     (tool) =>
-      tool.name.toLowerCase().includes(lowercaseQuery) ||
+      tool.status === "implemented" &&
+      (tool.name.toLowerCase().includes(lowercaseQuery) ||
       tool.description.toLowerCase().includes(lowercaseQuery) ||
-      tool.tags.some((tag) => tag.toLowerCase().includes(lowercaseQuery))
+      tool.tags.some((tag) => tag.toLowerCase().includes(lowercaseQuery)))
   );
 }
 

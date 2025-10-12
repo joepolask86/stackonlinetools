@@ -89,6 +89,7 @@ export function Header() {
               All Tools
             </Link>
             
+            
             {/* Categories Dropdown */}
             <div 
               className="relative" 
@@ -152,19 +153,23 @@ export function Header() {
           <div className="flex items-center space-x-3">
             {/* Search Button */}
             <button
-              className="hidden md:inline-flex p-3 py-2 bg-gray-100/20 border border-gray-200 rounded-full invert-shadow text-xs flex items-center"
+              className="hidden md:inline-flex p-3 py-2 bg-gray-100 w-2xs border-none rounded-md invert-shadow text-sm text-foreground/60 flex items-center"
               onClick={() => setOpen(true)}
             >
-              <Search className="h-4 w-4 text-foreground/80 mr-1" /> Ctrl K
+              <Search className="h-4 w-4 text-foreground/60 mr-1" /> Search Tools
+              <kbd className="hidden sm:inline-flex select-none items-center gap-1 py-0.5 px-1 font-mono text-[20px] font-medium text-sm border border-gray-200 rounded-xs bg-white text-foreground/80 rounded-sm ml-12">
+                <span className="text-xs">CtrlK</span>
+              </kbd>
             </button>
           
-            <Button
-              size="lg"
-              className="hidden md:inline-flex text-md rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 h-10 px-6"
-            >
-              <LogIn className="h-4 w-4 mr-0" />
-              Sign in
-            </Button>
+            <Link href="/login">
+              <Button
+                size="lg"
+                className="hidden md:inline-flex text-md rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 h-10 px-6"
+              >
+                Sign in
+              </Button>
+            </Link>
             
             <Link 
               href="#"
@@ -176,7 +181,7 @@ export function Header() {
             </Link>
             
             <Link 
-              href="#"
+              href="/login"
               className="md:hidden h-8 w-8 flex items-center justify-center ml-0" 
               aria-label="Sign in"
             >

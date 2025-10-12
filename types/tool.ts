@@ -18,6 +18,11 @@ export type ToolCategory =
   | "misc";
 
 /**
+ * Tool implementation status
+ */
+export type ToolStatus = "implemented" | "planned" | "in-development";
+
+/**
  * Tool metadata
  */
 export interface ToolMetadata {
@@ -29,6 +34,7 @@ export interface ToolMetadata {
   subcategory?: string;
   tags: string[];
   icon: string;
+  status: ToolStatus;
   isPremium?: boolean;
   isNew?: boolean;
   isTrending?: boolean;
