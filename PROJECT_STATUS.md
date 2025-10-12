@@ -136,7 +136,7 @@
 All core dependencies are defined in `package.json`:
 
 **Core:**
-- next ^15.1.4
+- next ^15.2.4
 - react ^18.3.1
 - typescript ^5
 

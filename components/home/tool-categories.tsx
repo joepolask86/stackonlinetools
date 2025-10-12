@@ -39,7 +39,7 @@ export function ToolCategories() {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-br from-gray-50 via-blue-50/30 to-gray-50">
+    <section className="py-20 bg-gradient-to-br from-gray-50 via-gray-200/30 to-gray-100">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         {/* Section Header */}
         <div className="mb-12 text-center">
@@ -63,7 +63,7 @@ export function ToolCategories() {
                 onClick={() => scrollToCategory(category.id)}
                 className="group w-full text-left"
               >
-                <Card className="h-full transition-all duration-300 hover:shadow-xl hover:shadow-gray-500/10 border-gray-200 hover:border-gray-100 hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50/50">
+                <Card className="h-full transition-all duration-300 hover:shadow-xl hover:shadow-gray-500/10 border-none hover:border-gray-100 hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50/50">
                   <CardContent className="flex flex-col items-start gap-4 p-6">
                     <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-blue-100 to-indigo-100 text-blue-600 transition-all duration-300 group-hover:from-blue-600 group-hover:to-indigo-600 group-hover:text-white group-hover:scale-110 group-hover:rotate-3">
                       <Icon className="h-7 w-7" />

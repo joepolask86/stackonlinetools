@@ -80,7 +80,7 @@ export function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8 text-lg">
+          <nav className="hidden md:flex items-center space-x-8 text-md">
             <Link
               href="/tools"
               className="transition-colors py-2 hover:text-primary text-foreground/90"
@@ -151,10 +151,10 @@ export function Header() {
           <div className="flex items-center space-x-3">
             {/* Search Button */}
             <button
-              className="hidden md:inline-flex p-2 py-1.5 bg-gray-200/20 border border-gray-200 rounded-full invert-shadow text-sm"
+              className="hidden md:inline-flex p-3 py-2 bg-gray-100/20 border border-gray-200 rounded-full invert-shadow text-xs flex items-center"
               onClick={() => setOpen(true)}
             >
-              <Search className="h-5 w-5 text-foreground/80 mr-1" /> Ctrl K
+              <Search className="h-4 w-4 text-foreground/80 mr-1" /> Ctrl K
             </button>
           
             <Button

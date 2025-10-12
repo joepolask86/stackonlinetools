@@ -179,7 +179,6 @@ Adding a new tool is simple with our modular architecture:
   name: "My Tool",
   description: "Description of my tool",
   category: "text",
-  tags: ["tag1", "tag2"],
   icon: "IconName",
 }
 ```

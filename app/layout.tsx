@@ -3,7 +3,7 @@ import { Inter, Manrope, Outfit } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { commonMetadata } from "@/lib/metadata";
-import Script from "next/script";
+
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap", });
 
@@ -18,26 +18,27 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Stack Online Tools",
-    "description": "100+ FREE online utilities for text manipulation, SEO, coding, image processing, and more. Fast, secure, and privacy-first.",
-    "applicationCategory": "WebApplication",
-    "operatingSystem": "Web Browser",
-    "offers": {
+ 
+    const jsonLd = {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Stack Online Tools",
+      "description": "100+ FREE online utilities for text manipulation, SEO, coding, image processing, and more. Fast, secure, and privacy-first.",
+      "applicationCategory": "WebApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
       "@type": "Offer",
       "price": "0",
       "priceCurrency": "USD"
-    },
-    "author": {
+      },
+      "author": {
       "@type": "Organization",
       "name": "Stack Online Tools Team"
-    },
-    "publisher": {
+      },
+      "publisher": {
       "@type": "Organization",
       "name": "Stack Online Tools"
-    }
+      }
   };
 
   return (
@@ -45,14 +46,9 @@ export default function RootLayout({
       <body className={`${inter.variable} ${manrope.variable} ${outfit.variable} font-sans antialiased`}>
         {children}
         <Toaster />
-        
-        {/* JSON-LD Schema - Next.js automatically places this in <head> */}
-        <Script
-          id="json-ld-schema"
+        <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLd),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </body>
     </html>
