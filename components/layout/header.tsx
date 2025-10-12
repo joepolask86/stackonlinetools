@@ -58,6 +58,7 @@ export function Header() {
   // Map category IDs to URL slugs
   const categoryUrlMap: Record<string, string> = {
     text: "text-tools",
+    "string-list": "string-list-tools",
     encoding: "encoding-tools",
     json: "json-tools",
     code: "code-tools",

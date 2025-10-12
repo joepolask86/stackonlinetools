@@ -5,6 +5,7 @@ import { ReactNode } from "react";
  */
 export type ToolCategory =
   | "text"
+  | "string-list"
   | "encoding"
   | "json"
   | "code"
