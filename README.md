@@ -40,6 +40,17 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) to see your app.
 
+## 📚 Documentation
+
+All setup guides and documentation are organized in the [`docs/`](./docs/) folder:
+
+- **[Environment Setup](./docs/ENVIRONMENT_SETUP.md)** - Environment variables and OAuth setup
+- **[Database Setup](./docs/DATABASE_SETUP.md)** - Database schema and setup guide  
+- **[Authentication Setup](./docs/AUTHENTICATION_SETUP.md)** - Complete authentication system guide
+- **[Project Status](./docs/PROJECT_STATUS.md)** - Current project status and progress
+
+For a complete overview, see the [Documentation Index](./docs/README.md).
+
 ## 📁 Project Structure
 
 ```

@@ -1,7 +1,10 @@
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { ContactSection } from "@/components/layout/contact-section";
 import { commonMetadata } from "@/lib/metadata";
 import { Card } from "@/components/ui/card";
+import Link from "next/link";
+import { Home, ChevronRight } from "lucide-react";
 
 export const metadata = commonMetadata.about;
 
@@ -11,10 +14,10 @@ export default function AboutPage() {
       <Header />
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-slate-900 dark:to-slate-800 py-16 md:py-24">
+        <section className="bg-gradient-to-br from-blue-50/50 to-indigo-100/50 dark:from-slate-900 dark:to-slate-800 py-16 md:py-20 tool-pattern-bg">
           <div className="container mx-auto px-4 max-w-4xl">
             <div className="text-center">
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+              <h1 className="text-4xl md:text-5xl font-bold text-blue-900 dark:text-white mb-6">
                 About Stack Online Tools
               </h1>
               <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
@@ -26,8 +29,42 @@ export default function AboutPage() {
         </section>
 
         {/* Mission Section */}
-        <section className="py-16 md:py-20">
+        <section className="py-16 md:py-20 pt-0 md:pt-0">
           <div className="container mx-auto px-4 max-w-4xl">
+            {/* Breadcrumb Navigation */}
+              <nav className="flex items-center space-x-2 text-md text-muted-foreground pt-6 mb-8" aria-label="Breadcrumb">
+                <Link href="/" className="flex items-center hover:text-foreground transition-colors">
+                  <Home className="h-4 w-4 mr-1" />
+                  Home
+                </Link>
+                <ChevronRight className="h-4 w-4" />
+                <span className="text-foreground">About</span>
+              </nav>
+
+              {/* Structured Data for Breadcrumbs */}
+              <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                  __html: JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "BreadcrumbList",
+                    "itemListElement": [
+                      {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Home",
+                        "item": "https://stackonlinetools.com"
+                      },
+                      {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": "About",
+                        "item": "https://stackonlinetools.com/about"
+                      }
+                    ]
+                  })
+                }}
+              />
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
@@ -99,11 +136,10 @@ export default function AboutPage() {
                   </svg>
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-                  Privacy First
+                Privacy & Transparency
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300">
-                  Your data stays on your device. We process everything 
-                  client-side when possible, with no tracking or data collection.
+                We securely collect minimal data on sign-in; most processing happens client-side to protect your privacy.
                 </p>
               </Card>
 
@@ -118,7 +154,7 @@ export default function AboutPage() {
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300">
                   Most tools are completely free forever. Premium tools with 
-                  third-party API integration may have usage limits or costs.
+                  third-party API integration may have usage limits or costs in the future.
                 </p>
               </Card>
             </div>
@@ -257,7 +293,7 @@ export default function AboutPage() {
 
               <Card className="p-8 border-none text-center shadow-lg\40 hover:shadow-md text-center">
                 <div className="w-24 h-24 bg-gradient-to-br from-green-500 to-blue-600 rounded-full mx-auto mb-6 flex items-center justify-center">
-                  <span className="text-2xl font-bold text-white">ST</span>
+                  <span className="text-2xl font-bold text-white">SOT</span>
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
                   Stack Online Tools Team
@@ -275,38 +311,7 @@ export default function AboutPage() {
         </section>
 
         {/* Contact Section */}
-        <section className="py-16 md:py-20 bg-gradient-to-r from-blue-800 to-indigo-900">
-          <div className="container mx-auto px-4 max-w-4xl">
-            <div className="text-center">
-              <h2 className="text-3xl font-bold text-white mb-6">
-                Get in Touch
-              </h2>
-              <p className="text-lg text-blue-100 mb-8 max-w-2xl mx-auto">
-                Have a suggestion for a new tool? Found a bug? Want to collaborate? 
-                We'd love to hear from you!
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a
-                  href="/suggest"
-                  className="inline-flex items-center px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-medium rounded-lg hover:bg-blue-50 transition-colors"
-                >
-                  Suggest a Tool
-                </a>
-                
-                <a
-                  href="mailto:hello@stackonlinetools.com"
-                  className="inline-flex items-center px-6 py-3 border border-blue-200 text-white font-medium rounded-lg hover:bg-blue-700/20 transition-colors"
-                >
-                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                  Contact Us
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
+        <ContactSection />
       </main>
       <Footer />
     </div>

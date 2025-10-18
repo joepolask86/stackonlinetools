@@ -6,17 +6,28 @@ import { Menu, ChevronDown, LogIn, Search } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { MobileNav } from "./mobile-nav";
 import { SearchModal, useSearchModal } from "@/components/search/search-modal";
+import { UserProfileDropdown } from "@/components/auth/user-profile-dropdown";
+import { useAuthStore } from "@/lib/store/auth";
 import { categories } from "@/lib/tool-registry";
 import * as Icons from "lucide-react";
 import { LucideIcon } from "lucide-react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 export function Header() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [categoriesOpen, setCategoriesOpen] = useState(false);
   const { open, setOpen } = useSearchModal();
+  const { user, isAuthenticated, logout } = useAuthStore();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const pathname = usePathname();
+
+  // Generate login URL with current page as redirect
+  const getLoginUrl = () => {
+    const currentPath = pathname;
+    return `/login?redirect=${encodeURIComponent(currentPath)}`;
+  };
 
   const getIcon = (iconName: string): LucideIcon => {
     return (Icons[iconName as keyof typeof Icons] as LucideIcon) || Icons.Box;
@@ -45,6 +56,7 @@ export function Header() {
       });
     }
   };
+
 
   // Cleanup timeout on unmount
   useEffect(() => {
@@ -81,7 +93,7 @@ export function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8 text-md">
+          <nav className="hidden lg:flex items-center space-x-8 text-md">
             <Link
               href="/tools"
               className="transition-colors py-2 hover:text-primary text-foreground/90"
@@ -153,7 +165,7 @@ export function Header() {
           <div className="flex items-center space-x-3">
             {/* Search Button */}
             <button
-              className="hidden md:inline-flex p-3 py-2 bg-gray-100 w-2xs border-none rounded-md invert-shadow text-sm text-foreground/60 flex items-center"
+              className="hidden lg:inline-flex p-3 py-2 bg-gray-100 w-2xs border-none rounded-md invert-shadow text-sm text-foreground/60 flex items-center"
               onClick={() => setOpen(true)}
             >
               <Search className="h-4 w-4 text-foreground/60 mr-1" /> Search Tools
@@ -162,35 +174,41 @@ export function Header() {
               </kbd>
             </button>
           
-            <Link href="/login">
-              <Button
-                size="lg"
-                className="hidden md:inline-flex text-md rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 h-10 px-6"
-              >
-                Sign in
-              </Button>
-            </Link>
+            {/* Authentication */}
+            {isAuthenticated && user ? (
+              <UserProfileDropdown user={user} onLogout={logout} />
+            ) : (
+              <Link href={getLoginUrl()}>
+                <Button
+                  className="hidden lg:inline-flex text-md rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 h-10 px-6"
+                >
+                  Sign in
+                </Button>
+              </Link>
+            )}
             
             <Link 
               href="#"
-              className="md:hidden flex items-center justify-center" 
+              className="lg:hidden flex items-center justify-center" 
               aria-label="Search"
               onClick={() => setOpen(true)}
             >
               <Search className="h-6 w-6 text-gray-800" />
             </Link>
             
-            <Link 
-              href="/login"
-              className="md:hidden h-8 w-8 flex items-center justify-center ml-0" 
-              aria-label="Sign in"
-            >
-              <LogIn className="h-6 w-6 text-gray-800" />
-            </Link>
+            {!isAuthenticated && (
+              <Link 
+                href={getLoginUrl()}
+                className="lg:hidden h-8 w-8 flex items-center justify-center ml-0" 
+                aria-label="Sign in"
+              >
+                <LogIn className="h-6 w-6 text-gray-800" />
+              </Link>
+            )}
 
             <Link 
                href="#"
-               className="md:hidden h-8 w-8 p-0" 
+               className="lg:hidden h-8 w-8 p-0" 
                onClick={() => setMobileNavOpen(true)}
                aria-label="Menu"
                >

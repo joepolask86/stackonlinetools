@@ -7,7 +7,7 @@ export function Footer() {
 
   return (
     <footer className="border-t bg-white">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 py-12 pb-8  ">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 py-12 pb-8">
         <div className="grid grid-cols-1 gap-6 sm:gap-12 md:grid-cols-4">
           {/* Brand */}
           <div className="space-y-4 md:col-span-1">
@@ -93,7 +93,7 @@ export function Footer() {
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t pt-4 md:flex-row">
           <p className="text-sm text-muted-foreground">
-            © {currentYear} Stack Online Tools. All rights reserved.
+            &copy; {currentYear} <strong>Stack Online Tools</strong>. All rights reserved.
           </p>
 
           <div className="flex items-center space-x-2">

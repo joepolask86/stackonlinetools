@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { ToolMetadata } from "@/types/tool";
 import * as Icons from "lucide-react";
 import { LucideIcon, ArrowRight, Heart } from "lucide-react";
+import { useFavorites } from "@/hooks/use-favorites";
+import { useAuthStore } from "@/lib/store/auth";
 
 interface CategoryToolsSectionProps {
   title: string;
@@ -22,6 +24,9 @@ export function CategoryToolsSection({
   tools,
   categorySlug,
 }: CategoryToolsSectionProps) {
+  const { isFavorite, toggleFavorite } = useFavorites();
+  const { isAuthenticated } = useAuthStore();
+  
   const getIcon = (iconName: string): LucideIcon => {
     return (Icons[iconName as keyof typeof Icons] as LucideIcon) || Icons.Box;
   };
@@ -60,20 +65,31 @@ export function CategoryToolsSection({
                 <Card className="h-full transition-all duration-300 hover:shadow-xl hover:shadow-gray-500/10 border-gray-200 hover:border-gray-100 hover:-translate-y-1 bg-white">
                   <CardHeader className="pb-3">
                     <div className="flex items-start justify-between">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-blue-100 to-indigo-100 text-blue-600 transition-all duration-300 group-hover:from-blue-600 group-hover:to-indigo-600 group-hover:text-white group-hover:scale-110">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-blue-100 to-indigo-100 text-blue-600 transition-all duration-300 group-hover:from-blue-600 group-hover:to-indigo-600 group-hover:text-white group-hover:scale-110 group-hover:rotate-3 mb-3">
                         <ToolIcon className="h-5 w-5" />
                       </div>
                       <button
-                        className="p-1.5 text-gray-200 hover:text-red-500 transition-all duration-200 group/favorite"
-                        aria-label="Add to favorites"
-                        title="Add to favorites"
-                        onClick={(e) => {
+                        className={`p-1.5 transition-all duration-200 group/favorite ${
+                          isFavorite(tool.id)
+                            ? "text-red-500"
+                            : "text-gray-300 hover:text-red-500"
+                        }`}
+                        aria-label={isFavorite(tool.id) ? "Remove from favorites" : "Add to favorites"}
+                        title={isFavorite(tool.id) ? "Remove from favorites" : "Add to favorites"}
+                        onClick={async (e) => {
                           e.preventDefault();
                           e.stopPropagation();
-                          // Handle favorite logic here
+                          
+                          if (!isAuthenticated) {
+                            const currentUrl = typeof window !== 'undefined' ? window.location.pathname : '';
+                            window.location.href = `/login?redirect=${encodeURIComponent(currentUrl)}`;
+                            return;
+                          }
+                          
+                          await toggleFavorite(tool.id);
                         }}
                       >
-                        <Heart className="h-5 w-5 group-hover/favorite:fill-current" />
+                        <Heart className={`h-5 w-5 ${isFavorite(tool.id) ? "fill-current" : "group-hover/favorite:fill-current"}`} />
                       </button>
                     </div>
                     <CardTitle className="text-base mt-3 group-hover:text-blue-600 transition-colors">{tool.name}</CardTitle>

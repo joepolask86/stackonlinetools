@@ -32,12 +32,12 @@ export interface ToolMetadata {
   description: string;
   category: ToolCategory;
   subcategory?: string;
-  tags: string[];
   icon: string;
   status: ToolStatus;
   isPremium?: boolean;
   isNew?: boolean;
   isTrending?: boolean;
+  contentHtml?: string; // Add this field for full HTML content
 }
 
 /**
@@ -74,6 +74,7 @@ export interface CategoryInfo {
   id: ToolCategory;
   name: string;
   description: string;
+  longDescription: string;
   icon: string;
   toolCount: number;
 }

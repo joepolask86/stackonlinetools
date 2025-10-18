@@ -1,57 +1,50 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { db, toolRequests } from '@/lib/db';
+import { auth } from '@/lib/auth';
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     
     // Validate required fields
-    const { name, email, toolName, description, useCase, category, recaptchaToken } = body;
+    const { toolName, description, category, similarToolURL } = body;
     
-    if (!name || !email || !toolName || !description || !useCase || !category || !recaptchaToken) {
+    if (!toolName || !description || !category || !similarToolURL) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
       );
     }
 
-    // TODO: Verify reCAPTCHA token with Google's API
-    // const recaptchaResponse = await fetch('https://www.google.com/recaptcha/api/siteverify', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    //   body: new URLSearchParams({
-    //     secret: process.env.RECAPTCHA_SECRET_KEY!,
-    //     response: recaptchaToken,
-    //   }),
-    // });
-    // const recaptchaResult = await recaptchaResponse.json();
-    // if (!recaptchaResult.success) {
-    //   return NextResponse.json({ error: 'reCAPTCHA verification failed' }, { status: 400 });
-    // }
-
-    // TODO: Save to database
-    // const suggestion = {
-    //   name,
-    //   email,
-    //   toolName,
-    //   description,
-    //   useCase,
-    //   category,
-    //   createdAt: new Date(),
-    //   status: 'pending'
-    // };
-    // await db.suggestions.create(suggestion);
-
-    // TODO: Send notification email
-    // await sendNotificationEmail(suggestion);
-
-    // For now, just log the suggestion
-    console.log('New tool suggestion received:', {
-      name,
-      email,
-      toolName,
-      category,
-      timestamp: new Date().toISOString()
+    // Get the authenticated user
+    const session = await auth.api.getSession({
+      headers: request.headers,
     });
+
+    if (!session?.user) {
+      return NextResponse.json(
+        { error: 'Authentication required' },
+        { status: 401 }
+      );
+    }
+
+    // Save to database
+    await db.insert(toolRequests).values({
+      userId: session.user.id,
+      toolName,
+      description,
+      category,
+      similarToolURL,
+      status: 'pending',
+    }).returning();
+
+    // console.log('New tool request saved:', {
+    //   id: toolRequest[0].id,
+    //   userId: session.user.id,
+    //   toolName,
+    //   category,
+    //   timestamp: new Date().toISOString()
+    // });
 
     return NextResponse.json(
       { message: 'Suggestion submitted successfully' },

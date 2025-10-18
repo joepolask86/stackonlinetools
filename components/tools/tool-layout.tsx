@@ -70,16 +70,6 @@ export function ToolLayout({ metadata, children }: ToolLayoutProps) {
               <CardDescription className="mt-2 text-base">
                 {metadata.description}
               </CardDescription>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {metadata.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-full bg-muted px-3 py-1 text-xs text-muted-foreground"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
             </div>
             <div className="flex gap-2">
               <Button

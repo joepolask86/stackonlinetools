@@ -1,32 +1,27 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import ReCAPTCHA from "react-google-recaptcha";
 import { Send, CheckCircle, AlertCircle } from "lucide-react";
+import Link from "next/link";
 
 interface FormData {
-  name: string;
-  email: string;
   toolName: string;
   description: string;
-  useCase: string;
   category: string;
+  similarToolURL: string;
 }
 
 interface FormErrors {
-  name?: string;
-  email?: string;
   toolName?: string;
   description?: string;
-  useCase?: string;
   category?: string;
-  recaptcha?: string;
+  similarToolURL?: string;
 }
 
 const categories = [
@@ -46,33 +41,19 @@ const categories = [
 
 export function SuggestToolForm() {
   const [formData, setFormData] = useState<FormData>({
-    name: "",
-    email: "",
     toolName: "",
     description: "",
-    useCase: "",
-    category: ""
+    category: "",
+    similarToolURL: ""
   });
   
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
-  const recaptchaRef = useRef<ReCAPTCHA>(null);
   const { toast } = useToast();
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
-
-    if (!formData.name.trim()) {
-      newErrors.name = "Name is required";
-    }
-
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Please enter a valid email address";
-    }
 
     if (!formData.toolName.trim()) {
       newErrors.toolName = "Tool name is required";
@@ -84,16 +65,13 @@ export function SuggestToolForm() {
       newErrors.description = "Please provide a more detailed description (at least 50 characters)";
     }
 
-    if (!formData.useCase.trim()) {
-      newErrors.useCase = "Use case is required";
-    }
 
     if (!formData.category) {
       newErrors.category = "Please select a category";
     }
 
-    if (!recaptchaToken) {
-      newErrors.recaptcha = "Please complete the reCAPTCHA verification";
+    if (!/^https?:\/\/.+/.test(formData.similarToolURL)) {
+      newErrors.similarToolURL = "Please enter a valid URL (starting with http:// or https://)";
     }
 
     setErrors(newErrors);
@@ -108,12 +86,6 @@ export function SuggestToolForm() {
     }
   };
 
-  const handleRecaptchaChange = (token: string | null) => {
-    setRecaptchaToken(token);
-    if (errors.recaptcha) {
-      setErrors(prev => ({ ...prev, recaptcha: undefined }));
-    }
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -137,7 +109,6 @@ export function SuggestToolForm() {
         },
         body: JSON.stringify({
           ...formData,
-          recaptchaToken,
         }),
       });
 
@@ -154,15 +125,11 @@ export function SuggestToolForm() {
 
       // Reset form
       setFormData({
-        name: "",
-        email: "",
         toolName: "",
         description: "",
-        useCase: "",
-        category: ""
+        category: "",
+        similarToolURL: ""
       });
-      setRecaptchaToken(null);
-      recaptchaRef.current?.reset();
 
     } catch (error) {
       toast({
@@ -177,20 +144,21 @@ export function SuggestToolForm() {
 
   if (isSubmitted) {
     return (
-      <Card className="text-center">
-        <CardContent className="pt-8">
+      <Card className="text-center border-none shadow-none">
+        <CardContent className="py-4">
           <div className="flex justify-center mb-4">
             <CheckCircle className="h-16 w-16 text-green-500" />
           </div>
-          <h3 className="text-2xl font-bold text-gray-900 mb-2">
+          <h3 className="text-2xl font-bold text-gray-900 mb-4">
             Suggestion Submitted!
           </h3>
-          <p className="text-gray-600 mb-6">
-            Thank you for your suggestion. We'll review it and get back to you if we decide to implement it.
+          <p className="text-neutral-600 mb-6">
+            Thank you for your suggestion. We&apos;ll review it and get back to you if we decide to implement it.
           </p>
           <Button 
             onClick={() => setIsSubmitted(false)}
             variant="outline"
+            className="px-8 py-6 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white hover:text-white text-md font-medium rounded-full hover:-translate-y-0" 
           >
             Submit Another Suggestion
           </Button>
@@ -201,54 +169,11 @@ export function SuggestToolForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Name Field */}
-        <div className="space-y-2">
-          <Label htmlFor="name" className="text-md font-medium">
-            Your Name *
-          </Label>
-          <Input
-            id="name"
-            type="text"
-            value={formData.name}
-            onChange={(e) => handleInputChange("name", e.target.value)}
-            placeholder="Enter your full name"
-            className={`text-base md:text-base ${errors.name ? "border-red-500" : ""}`}
-          />
-          {errors.name && (
-            <p className="text-sm text-red-600 flex items-center gap-1">
-              <AlertCircle className="h-4 w-4" />
-              {errors.name}
-            </p>
-          )}
-        </div>
-
-        {/* Email Field */}
-        <div className="space-y-2">
-          <Label htmlFor="email" className="text-md font-medium">
-            Email Address *
-          </Label>
-          <Input
-            id="email"
-            type="email"
-            value={formData.email}
-            onChange={(e) => handleInputChange("email", e.target.value)}
-            placeholder="your.email@example.com"
-            className={`text-base md:text-base ${errors.email ? "border-red-500" : ""}`}
-          />
-          {errors.email && (
-            <p className="text-sm text-red-600 flex items-center gap-1">
-              <AlertCircle className="h-4 w-4" />
-              {errors.email}
-            </p>
-          )}
-        </div>
-      </div>
 
       {/* Tool Name Field */}
       <div className="space-y-2">
         <Label htmlFor="toolName" className="text-md font-medium">
-          Tool Name *
+          Tool Name <span className="text-red-500">*</span>
         </Label>
         <Input
           id="toolName"
@@ -269,7 +194,7 @@ export function SuggestToolForm() {
       {/* Category Field */}
       <div className="space-y-2">
         <Label htmlFor="category" className="text-md font-medium">
-          Category *
+          Category <span className="text-red-500">*</span>
         </Label>
         <select
           id="category"
@@ -297,7 +222,7 @@ export function SuggestToolForm() {
       {/* Description Field */}
       <div className="space-y-2">
         <Label htmlFor="description" className="text-md font-medium">
-          Tool Description *
+          Tool Description <span className="text-red-500">*</span>
         </Label>
         <Textarea
           id="description"
@@ -320,30 +245,34 @@ export function SuggestToolForm() {
         )}
       </div>
 
-      {/* reCAPTCHA */}
+      {/* Similar Tool URL Field */}
       <div className="space-y-2">
-        <div className="flex justify-center">
-          <ReCAPTCHA
-            ref={recaptchaRef}
-            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"}
-            onChange={handleRecaptchaChange}
-            theme="light"
-          />
-        </div>
-        {errors.recaptcha && (
-          <p className="text-sm text-red-600 flex items-center justify-center gap-1">
+        <Label htmlFor="similarToolURL" className="text-md font-medium">
+           Enter the URL of a similar tool (optional)
+        </Label>
+        <Input
+          id="similarToolURL"
+          type="url"
+          value={formData.similarToolURL}
+          onChange={(e) => handleInputChange("similarToolURL", e.target.value)}
+          placeholder="Similar Tool URL"
+          className={`text-base md:text-base ${errors.similarToolURL ? "border-red-500" : ""}`}
+        />
+        {errors.similarToolURL && (
+          <p className="text-sm text-red-600 flex items-center gap-1">
             <AlertCircle className="h-4 w-4" />
-            {errors.recaptcha}
+            {errors.similarToolURL}
           </p>
         )}
       </div>
+
 
       {/* Submit Button */}
       <div className="pt-4 text-center">
         <Button
           type="submit"
           disabled={isSubmitting}
-          className="px-8 py-6 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-lg font-medium"
+          className="px-8 py-6 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-lg font-medium hover:-translate-y-0" 
         >
           {isSubmitting ? (
             <div className="flex items-center gap-2">
@@ -353,14 +282,14 @@ export function SuggestToolForm() {
           ) : (
             <div className="flex items-center gap-2">
               <Send className="h-5 w-5" />
-              Submit Suggestion
+              Submit
             </div>
           )}
         </Button>
       </div>
-
+    
       <p className="text-xs text-gray-500 text-center">
-        By submitting this form, you agree to our <a href="/terms" className="text-blue-600 dark:text-blue-400 hover:underline">Terms of Service</a> and <a href="/privacy" className="text-blue-600 dark:text-blue-400 hover:underline">Privacy Policy</a>.
+        By submitting this form, you agree to our <Link href="/terms" className="text-blue-600 dark:text-blue-400 hover:underline">Terms of Service</Link> and <Link href="/privacy" className="text-blue-600 dark:text-blue-400 hover:underline">Privacy Policy</Link>.
       </p>
     </form>
   );

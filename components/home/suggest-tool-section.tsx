@@ -24,11 +24,11 @@ export function SuggestToolSection() {
           </p>
           
           <Button asChild
-            className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-6 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-200"
+            className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-6 text-lg font-semibold rounded-full hover:-translate-y-0 border-none"
           >
             <Link href="/suggest">
               Suggest a Tool
-              <ArrowRight className="ml-2 h-5 w-5" />
+              <ArrowRight className="h-5 w-5" />
             </Link>
           </Button>
         </div>

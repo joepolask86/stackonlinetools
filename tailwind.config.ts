@@ -56,6 +56,10 @@ const config: Config = {
         outfit: ["var(--font-outfit)", "system-ui", "sans-serif"],
         mono: ["var(--font-jetbrains-mono)", "monospace"],
       },
+      maxWidth: {
+        '8xl': '88rem',  // ~1408px
+        '9xl': '96rem',  // ~1536px
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

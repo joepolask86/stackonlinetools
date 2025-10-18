@@ -1,6 +1,7 @@
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { commonMetadata } from "@/lib/metadata";
+import Link from "next/link";
 
 export const metadata = commonMetadata.terms;
 
@@ -10,10 +11,10 @@ export default function TermsOfServicePage() {
       <Header />
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-slate-900 dark:to-slate-800 py-16 md:py-24">
+        <section className="bg-gradient-to-br from-blue-50/50 to-indigo-100/50 dark:from-slate-900 dark:to-slate-800 py-16 md:py-24 tool-pattern-bg">
           <div className="container mx-auto px-4 max-w-4xl">
             <div className="text-center">
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+              <h1 className="text-4xl md:text-5xl font-bold text-blue-900 dark:text-white mb-6">
                 Terms of Service
               </h1>
               <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
@@ -33,11 +34,11 @@ export default function TermsOfServicePage() {
               
               <div className="text-gray-600 dark:text-gray-300 mb-8">
                 <p className="mb-6">
-                  Welcome to StackOnlineTools ("we," "our," or "us"). By accessing or using{" "}
+                  Welcome to StackOnlineTools (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;). By accessing or using{" "}
                   <a href="https://stackonlinetools.com" className="text-blue-600 dark:text-blue-400 hover:underline">
                     https://stackonlinetools.com
                   </a>{" "}
-                  (the "Website" or "Service"), you agree to comply with and be bound by these Terms and Conditions ("Terms"). 
+                  (the &quot;Website&quot; or &quot;Service&quot;), you agree to comply with and be bound by these Terms and Conditions (&quot;Terms&quot;). 
                   Please read them carefully before using our Website or any of our tools.
                 </p>
                 <p className="mb-8">
@@ -59,7 +60,7 @@ export default function TermsOfServicePage() {
               </h2>
               <p className="text-gray-600 dark:text-gray-300 mb-4">
                 StackOnlineTools provides access to various free and premium online tools for text formatting, data processing, 
-                file conversion, SEO analysis, and other digital utilities ("Services").
+                file conversion, SEO analysis, and other digital utilities (&quot;Services&quot;).
               </p>
               <p className="text-gray-600 dark:text-gray-300 mb-4">We reserve the right to:</p>
               <ul className="list-disc pl-6 text-gray-600 dark:text-gray-300 mb-8">
@@ -167,9 +168,9 @@ export default function TermsOfServicePage() {
               </h2>
               <p className="text-gray-600 dark:text-gray-300 mb-8">
                 Your use of StackOnlineTools is also governed by our{" "}
-                <a href="/privacy" className="text-blue-600 dark:text-blue-400 hover:underline">
+                <Link href="/privacy" className="text-blue-600 dark:text-blue-400 hover:underline">
                   Privacy Policy
-                </a>
+                </Link>
                 , which explains how we collect, store, and protect your personal data in compliance with U.S. data protection laws. 
                 By using the Website, you consent to such collection and processing.
               </p>
@@ -178,7 +179,7 @@ export default function TermsOfServicePage() {
                 8. Disclaimer of Warranties
               </h2>
               <p className="text-gray-600 dark:text-gray-300 mb-4">
-                All tools and content are provided "as is" and "as available" without any warranties of any kind. We do not guarantee:
+                All tools and content are provided &quot;as is&quot; and &quot;as available&quot; without any warranties of any kind. We do not guarantee:
               </p>
               <ul className="list-disc pl-6 text-gray-600 dark:text-gray-300 mb-4">
                 <li>Accuracy, completeness, or reliability of any results generated.</li>

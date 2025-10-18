@@ -21,6 +21,13 @@ export function SearchModal({ open, onOpenChange }: SearchModalProps) {
   const [results, setResults] = useState<{ item: ToolMetadata; refIndex: number; score?: number }[]>([]);
   const router = useRouter();
 
+  // Get initial available tools
+  const initialTools = useMemo(() => {
+    return toolsMetadata
+      .filter(tool => tool.status === "implemented")
+      .slice(0, 8);
+  }, []);
+
   // Initialize Fuse.js for fuzzy search (memoized to prevent recreating on every render)
   const fuse = useMemo(
     () =>
@@ -36,14 +43,15 @@ export function SearchModal({ open, onOpenChange }: SearchModalProps) {
   const handleSearch = useCallback(
     (searchQuery: string) => {
       if (!searchQuery.trim()) {
-        setResults([]);
+        // Show initial tools when no query
+        setResults(initialTools.map((tool, index) => ({ item: tool, refIndex: index })));
         return;
       }
 
       const searchResults = fuse.search(searchQuery);
       setResults(searchResults.slice(0, 8));
     },
-    [fuse]
+    [fuse, initialTools]
   );
 
   useEffect(() => {
@@ -81,37 +89,35 @@ export function SearchModal({ open, onOpenChange }: SearchModalProps) {
           </kbd>
         </div>
 
-        {query.trim() !== "" && (
-          <div className="max-h-[380px] overflow-y-auto p-0">
-            {results.length === 0 ? (
-              <div className="py-12 text-center text-lg text-muted-foreground">
-                No tools found. Try a different search term.
-              </div>
-            ) : (
-              <div className="space-y-0">
-                {results.map((result) => {
-                  const tool = result.item;
-                  const Icon = getIcon(tool.icon);
-                  return (
-                    <button
-                      key={tool.id}
-                      onClick={() => handleSelect(tool.slug)}
-                      className="w-full flex items-start gap-3 items-center border-t border-gray-100 p-3 py-2 text-left hover:bg-accent transition-colors"
-                    >
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                        <Icon className="h-5 w-5" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="font-medium text-md text-gray-600 hover:text-blue-600">{tool.name}</div>
-                        <div className="text-xs text-gray-500">{tool.description}</div>
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        )}
+        <div className="max-h-[380px] overflow-y-auto p-0">
+          {results.length === 0 && query.trim() !== "" ? (
+            <div className="py-12 text-center text-lg text-muted-foreground">
+              No tools found. Try a different search term.
+            </div>
+          ) : (
+            <div className="space-y-0">
+              {results.map((result) => {
+                const tool = result.item;
+                const Icon = getIcon(tool.icon);
+                return (
+                  <button
+                    key={tool.id}
+                    onClick={() => handleSelect(tool.slug)}
+                    className="w-full flex items-start gap-3 items-center border-t border-gray-100 p-3 py-2 text-left hover:bg-accent transition-colors"
+                  >
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="font-medium text-md text-gray-600 hover:text-blue-600">{tool.name}</div>
+                      <div className="text-xs text-gray-500">{tool.description}</div>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+        </div>
       </DialogContent>
     </Dialog>
   );

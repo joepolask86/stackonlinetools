@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { X, Twitter } from "lucide-react";
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 
 interface MobileNavProps {
@@ -11,6 +12,14 @@ interface MobileNavProps {
 }
 
 export function MobileNav({ open, onOpenChange }: MobileNavProps) {
+  const pathname = usePathname();
+
+  // Generate login URL with current page as redirect
+  const getLoginUrl = () => {
+    const currentPath = pathname;
+    return `/login?redirect=${encodeURIComponent(currentPath)}`;
+  };
+
   useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
@@ -53,18 +62,10 @@ export function MobileNav({ open, onOpenChange }: MobileNavProps) {
           <nav className="flex flex-col items-center space-y-4">
             {/* Login/Register */}
             <Link
-              href="/login"
+              href={getLoginUrl()}
               className="text-xl font-bold text-white transition-colors"
             >
               Login / Register
-            </Link>
-
-            {/* Favorites */}
-            <Link
-              href="/favorites"
-              className="text-xl font-bold text-white transition-colors"
-            >
-              Favorites
             </Link>
 
             {/* About */}

@@ -3,6 +3,7 @@ import { Inter, Manrope, Outfit } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { commonMetadata } from "@/lib/metadata";
+import { SessionProvider } from "@/components/providers/session-provider";
 
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap", });
@@ -44,7 +45,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} ${manrope.variable} ${outfit.variable} font-sans antialiased`}>
-        {children}
+        <SessionProvider>
+          {children}
+        </SessionProvider>
         <Toaster />
         <script
           type="application/ld+json"
