@@ -133,14 +133,14 @@ export const commonMetadata = {
 
   // Tool Metadata
   "case-converter": generateMetadata({
-    title: "Case Converter Tool - Stack Online Tools",
+    title: "Case Converter Tool - Change and Convert Case",
     description: "Convert text between uppercase, lowercase, title case, sentence case, and more. Free online text case converter tool.",
     url: "/tool/case-converter",
   }),
 
   "word-counter": generateMetadata({
-    title: "Word Counter - Stack Online Tools",
-    description: "Count words, characters, sentences, paragraphs, and reading time. Free online word counter with detailed statistics.",
+    title: "Word Counter - Free Online Word Counter Tool",
+    description: "Count words, characters, sentences, paragraphs, reading time, and keyword density. Free online word counter with detailed statistics.",
     url: "/tool/word-counter",
   }),
 
@@ -151,8 +151,8 @@ export const commonMetadata = {
   }),
 
   "json-formatter": generateMetadata({
-    title: "JSON Formatter - Stack Online Tools",
-    description: "Format, validate, and beautify JSON with syntax highlighting. Free online JSON formatter and validator.",
+    title: "JSON Formatter & Validator - Stack Online Tools",
+    description: "Free JSON Formatter and Validator to beautify, validate, and fix JSON errors instantly. Fast, secure, and easy to use online tool.",
     url: "/tool/json-formatter",
   }),
 

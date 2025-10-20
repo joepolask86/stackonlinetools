@@ -149,7 +149,7 @@ export function ToolDocsLayout({ metadata, children }: ToolDocsLayoutProps) {
               {/* Navigation */}
               <nav className="space-y-0">
                 <div className="flex items-center justify-between px-3 py-4 text-sm font-semibold text-foreground rounded-none transition-colors bg-gray-100">
-                  <div className="flex items-center text-[17px] font-normal uppercase text-neutral-700 space-x-2 pl-2">
+                  <div className="flex items-center text-[16px] font-normal uppercase text-neutral-700 space-x-2 pl-2">
                     <span>Tool Categories</span>
                   </div>
                   {/* Close button for mobile */}
@@ -174,7 +174,7 @@ export function ToolDocsLayout({ metadata, children }: ToolDocsLayoutProps) {
                           className="w-full flex items-center justify-between px-3 py-3 text-foreground rounded-none transition-colors border-b border-gray-100"
                           disabled={!hasTools}
                         >
-                          <div className={`flex items-center text-[18px] font-medium space-x-2 pl-2 ${
+                          <div className={`flex items-center text-[16px] font-medium space-x-2 pl-2 ${
                             isExpanded ? "text-blue-700" : "text-neutral-700"
                           }`}>
                             <Icon className="h-4 w-4" />
@@ -206,9 +206,9 @@ export function ToolDocsLayout({ metadata, children }: ToolDocsLayoutProps) {
                             <a
                               key={tool.id}
                               href={`/tool/${tool.slug}`}
-                              className={`block pl-12 py-2 text-[17px] transition-colors ${
+                              className={`block pl-12 py-2 text-[16px] transition-colors ${
                                 tool.slug === metadata.slug
-                                  ? "text-neutral-700 font-semibold"
+                                  ? "text-neutral-700 font-medium"
                                   : "text-muted-foreground hover:text-neutral-700 hover:bg-transparent"
                               }`}
                             >
@@ -412,9 +412,9 @@ export function ToolDocsLayout({ metadata, children }: ToolDocsLayoutProps) {
              <div className="mt-10">
                <div className="flex items-center justify-between mb-6">
                  <h2 className="text-2xl font-semibold text-neutral-800">Similar {categories.find(cat => cat.id === metadata.category)?.name || 'Tools'}</h2>
-                 <a href={`/${metadata.category}-tools`} className="text-lg font-medium text-blue-600 hover:text-blue-900 transition-colors flex items-center">
+                 <a href={`/${metadata.category}-tools`} className="text-md font-medium text-blue-600 hover:text-blue-900 transition-colors flex items-center">
                    <span>See All</span>
-                   <ChevronRight className="h-4 w-4" />
+                   <ChevronRight className="h-3 w-3" />
                  </a>
                </div>
 
@@ -428,8 +428,8 @@ export function ToolDocsLayout({ metadata, children }: ToolDocsLayoutProps) {
                      return (
                        <Card key={tool.id} className="h-full shadow-[rgba(48, 48, 48, 0.07) 0px 2px 3px] transition-all duration-300 hover:shadow-lg hover:shadow-[rgba(48, 48, 48, 0.075) 0px 4px 8px;] border-none hover:-translate-y-1 bg-white group">
                          <CardHeader className="pb-4">
-                           <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-blue-100 to-indigo-100 text-blue-600 transition-all duration-300 group-hover:from-blue-600 group-hover:to-indigo-600 group-hover:text-white group-hover:scale-110 group-hover:rotate-3 mb-4">
-                             <ToolIcon className="h-10 w-10" />
+                           <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-100 to-indigo-100 text-blue-600 transition-all duration-300 group-hover:from-blue-600 group-hover:to-indigo-600 group-hover:text-white group-hover:scale-110 group-hover:rotate-3 mb-3">
+                             <ToolIcon className="h-8 w-8" />
                            </div>
                            <h3 className="font-semibold text-gray-900 mb-2">{tool.name}</h3>
                            <p className="text-sm text-gray-600 mb-4 line-clamp-2">{tool.description}</p>

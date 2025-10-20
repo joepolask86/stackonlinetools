@@ -95,7 +95,7 @@ export function ShareModal({ isOpen, onClose, title, url, description, categoryN
               );
             })}
             <Button
-              className="flex items-center gap-3 h-12 w-12 border-none hover:bg-orange-500 rounded-full [&_svg]:size-6"
+              className="flex items-center gap-3 h-12 w-12 border-none hover:bg-blue-700 rounded-full [&_svg]:size-6"
               onClick={handleCopy}
             >
               {copied ? (
