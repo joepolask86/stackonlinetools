@@ -36,7 +36,7 @@ jobs:
             npm ci --omit=dev
 
             echo "🔹 Restarting PM2 process..."
-            pm2 restart stackapp || pm2 start npm --name "stackapp" -- run start
+            pm2 restart stack-online-tools || pm2 start npm --name "stack-online-tools" -- run start
 
             echo "✅ Deployment complete!"
           EOF
