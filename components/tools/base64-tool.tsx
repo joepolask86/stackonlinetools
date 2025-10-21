@@ -3,9 +3,8 @@
 import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ChevronRight, Copy, RotateCcw, Paintbrush } from "lucide-react";
+import { ChevronRight, Copy, Paintbrush } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { copyToClipboard } from "@/lib/utils";
 
@@ -41,13 +40,7 @@ export default function Base64Tool() {
   };
 
   const handleCopy = async () => {
-    const success = await copyToClipboard(output);
-    // if (success) {
-    //   toast({
-    //     title: "Copied!",
-    //     description: "Output copied to clipboard.",
-    //   });
-    // }
+    await copyToClipboard(output);
   };
 
   const handleReset = () => {
