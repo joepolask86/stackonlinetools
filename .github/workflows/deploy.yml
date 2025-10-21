@@ -21,8 +21,22 @@ jobs:
       - name: Deploy app to VPS
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
+            set -e  # stop on any error
+            echo "🔹 Connecting to server..."
             cd ${{ secrets.APP_DIR }}
-            git pull origin main
-            npm install --production
-            pm2 restart stackapp || pm2 start npm --name "stackapp" -- run start
+
+            echo "🔹 Current branch:"
+            git rev-parse --abbrev-ref HEAD
+
+            echo "🔹 Pulling latest changes..."
+            git fetch origin main
+            git reset --hard origin/main
+
+            echo "🔹 Installing dependencies..."
+            npm ci --omit=dev
+
+            echo "🔹 Restarting PM2 process..."
+            pm2 restart stack-online-tools || pm2 start npm --name "stack-online-tools" -- run start
+
+            echo "✅ Deployment complete!"
           EOF
