@@ -46,6 +46,9 @@ next-env.d.ts
 .vscode
 .idea
 
+# GitHub workflows
+.github
+
 /docs
 /.playwright-mcp
 
