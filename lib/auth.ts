@@ -39,7 +39,7 @@ export const auth = betterAuth({
     },
   },
   trustedOrigins: [
-    "http://localhost:3000",
+    process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
     "https://stackonlinetools.com", // Replace with your production domain
   ],
   advanced: {

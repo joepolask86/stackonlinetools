@@ -17,7 +17,7 @@ export function generateMetadata(config: MetadataConfig): Metadata {
     noIndex = false,
   } = config;
 
-  const baseUrl = "http://localhost:3000";
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
   const fullUrl = url ? `${baseUrl}${url}` : baseUrl;
   const imageUrl = image.startsWith("http") ? image : `${baseUrl}${image}`;
 
