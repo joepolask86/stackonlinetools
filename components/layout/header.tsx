@@ -180,7 +180,7 @@ export function Header() {
             ) : (
               <Link href={getLoginUrl()}>
                 <Button
-                  className="hidden lg:inline-flex text-md rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 h-10 px-6"
+                  className="hidden lg:inline-flex text-md rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 h-10 px-6 hover:-translate-y-0"
                 >
                   Sign in
                 </Button>
