@@ -1,9 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Copy, Download, Paintbrush } from "lucide-react";
@@ -34,30 +33,6 @@ export default function JsonFormatter() {
       setIndentSize(parseInt(savedIndentSize) || 2);
     }
   }, []);
-
-  const handleFormat = () => {
-    if (!input.trim()) return;
-    
-    try {
-      const parsed = JSON.parse(input);
-      const indent = indentType === "tab" ? "\t" : " ".repeat(indentSize);
-      const formatted = JSON.stringify(parsed, null, indent);
-      setOutput(formatted);
-      setError("");
-      // toast({
-      //   title: "Success!",
-      //   description: "JSON formatted successfully.",
-      //   variant: "default",
-      // });
-    } catch (err) {
-      setError((err as Error).message);
-      toast({
-        title: "Invalid JSON",
-        description: "Please check your JSON syntax.",
-        variant: "destructive",
-      });
-    }
-  };
 
   const handleMinify = () => {
     try {
@@ -108,7 +83,7 @@ export default function JsonFormatter() {
   };
 
   // Validate JSON on input change and auto-format
-  const validateJSON = (jsonString: string) => {
+  const validateJSON = useCallback((jsonString: string) => {
     if (!jsonString.trim()) {
       setError("");
       setOutput("");
@@ -127,14 +102,14 @@ export default function JsonFormatter() {
       setError((err as Error).message);
       setOutput("");
     }
-  };
+  }, [indentType, indentSize]);
 
   // Auto-format when indent type or size changes
   useEffect(() => {
     if (input.trim()) {
       validateJSON(input);
     }
-  }, [indentType, indentSize]);
+  }, [indentType, indentSize, input, validateJSON]);
 
   // Save to localStorage when input changes
   useEffect(() => {
@@ -153,7 +128,7 @@ export default function JsonFormatter() {
   // Validate JSON when input changes
   useEffect(() => {
     validateJSON(input);
-  }, [input]);
+  }, [input, validateJSON]);
 
   return (
     <div className="space-y-6">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -34,6 +34,60 @@ export default function WordCounter() {
     };
   }, [text]);
 
+// Calculate average syllables per word
+const calculateAvgSyllables = useCallback((text: string): number => {
+  const words = text.toLowerCase().match(/\b[a-z]+\b/g) || [];
+  if (words.length === 0) return 0;
+  
+  const totalSyllables = words.reduce((total, word) => {
+    return total + countSyllables(word);
+  }, 0);
+  
+  return totalSyllables / words.length;
+}, []);
+
+// Count syllables in a word (improved algorithm)
+const countSyllables = useCallback((word: string): number => {
+  word = word.toLowerCase().trim();
+  if (word.length <= 3) return 1;
+  
+  // Remove non-letters
+  word = word.replace(/[^a-z]/g, '');
+  
+  const vowels = 'aeiouy';
+  let count = 0;
+  let previousWasVowel = false;
+  
+  for (let i = 0; i < word.length; i++) {
+    const isVowel = vowels.includes(word[i]);
+    if (isVowel && !previousWasVowel) {
+      count++;
+    }
+    previousWasVowel = isVowel;
+  }
+  
+  // Handle silent 'e' at the end
+  if (word.endsWith('e') && count > 1) {
+    count--;
+  }
+  
+  // Handle special endings that add syllables
+  if (word.endsWith('le') && word.length > 2 && !vowels.includes(word[word.length - 3])) {
+    count++;
+  }
+  
+  // Handle 'ed' ending
+  if (word.endsWith('ed') && count > 1 && !vowels.includes(word[word.length - 3])) {
+    count--;
+  }
+  
+  // Handle 'es' or 'e' at the end more accurately
+  if (word.match(/[^aeiou]es$/) && count > 1) {
+    count--;
+  }
+  
+  return Math.max(1, count);
+}, []);
 
   // Calculate reading level using Flesch Reading Ease formula
 const readingLevel = useMemo(() => {
@@ -77,67 +131,12 @@ const readingLevel = useMemo(() => {
   }
   
   return { ease, score, grade, gradeLevel };
-}, [text, stats.words, stats.sentences]);
-
-// Calculate average syllables per word
-function calculateAvgSyllables(text: string): number {
-  const words = text.toLowerCase().match(/\b[a-z]+\b/g) || [];
-  if (words.length === 0) return 0;
-  
-  const totalSyllables = words.reduce((total, word) => {
-    return total + countSyllables(word);
-  }, 0);
-  
-  return totalSyllables / words.length;
-}
-
-// Count syllables in a word (improved algorithm)
-function countSyllables(word: string): number {
-  word = word.toLowerCase().trim();
-  if (word.length <= 3) return 1;
-  
-  // Remove non-letters
-  word = word.replace(/[^a-z]/g, '');
-  
-  const vowels = 'aeiouy';
-  let count = 0;
-  let previousWasVowel = false;
-  
-  for (let i = 0; i < word.length; i++) {
-    const isVowel = vowels.includes(word[i]);
-    if (isVowel && !previousWasVowel) {
-      count++;
-    }
-    previousWasVowel = isVowel;
-  }
-  
-  // Handle silent 'e' at the end
-  if (word.endsWith('e') && count > 1) {
-    count--;
-  }
-  
-  // Handle special endings that add syllables
-  if (word.endsWith('le') && word.length > 2 && !vowels.includes(word[word.length - 3])) {
-    count++;
-  }
-  
-  // Handle 'ed' ending
-  if (word.endsWith('ed') && count > 1 && !vowels.includes(word[word.length - 3])) {
-    count--;
-  }
-  
-  // Handle 'es' or 'e' at the end more accurately
-  if (word.match(/[^aeiou]es$/) && count > 1) {
-    count--;
-  }
-  
-  return Math.max(1, count);
-}
+}, [text, stats.words, stats.sentences, calculateAvgSyllables]);
 
   // Common stop words to filter out
-  const stopWords = new Set([
+  const stopWords = useMemo(() => new Set([
     'the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by', 'from', 'up', 'about', 'into', 'through', 'during', 'before', 'after', 'above', 'below', 'between', 'among', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'could', 'should', 'may', 'might', 'must', 'can', 'this', 'that', 'these', 'those', 'i', 'you', 'he', 'she', 'it', 'we', 'they', 'me', 'him', 'her', 'us', 'them', 'my', 'your', 'his', 'her', 'its', 'our', 'their', 'mine', 'yours', 'hers', 'ours', 'theirs', 'myself', 'yourself', 'himself', 'herself', 'itself', 'ourselves', 'yourselves', 'themselves', 'what', 'which', 'who', 'whom', 'whose', 'where', 'when', 'why', 'how', 'all', 'any', 'both', 'each', 'few', 'more', 'most', 'other', 'some', 'such', 'no', 'nor', 'not', 'only', 'own', 'same', 'so', 'than', 'too', 'very', 'just', 'now','keep'
-  ]);
+  ]), []);
 
   // Generate keyword analysis
   const keywordAnalysis = useMemo(() => {
@@ -216,7 +215,7 @@ function countSyllables(word: string): number {
     );
     
     return { top, oneX, twoX, threeX };
-  }, [text]);
+  }, [text, stopWords]);
   
   const getCurrentKeywords = () => {
     switch (keywordTab) {
