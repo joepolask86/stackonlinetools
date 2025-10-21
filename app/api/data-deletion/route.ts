@@ -20,7 +20,7 @@ export async function POST(request: Request) {
     console.log("Data deletion request received:", payload);
 
     return NextResponse.json({ ok: true });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: "unexpected_error" }, { status: 500 });
   }
 }

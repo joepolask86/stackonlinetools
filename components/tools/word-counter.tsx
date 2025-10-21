@@ -34,18 +34,6 @@ export default function WordCounter() {
     };
   }, [text]);
 
-// Calculate average syllables per word
-const calculateAvgSyllables = useCallback((text: string): number => {
-  const words = text.toLowerCase().match(/\b[a-z]+\b/g) || [];
-  if (words.length === 0) return 0;
-  
-  const totalSyllables = words.reduce((total, word) => {
-    return total + countSyllables(word);
-  }, 0);
-  
-  return totalSyllables / words.length;
-}, []);
-
 // Count syllables in a word (improved algorithm)
 const countSyllables = useCallback((word: string): number => {
   word = word.toLowerCase().trim();
@@ -88,6 +76,18 @@ const countSyllables = useCallback((word: string): number => {
   
   return Math.max(1, count);
 }, []);
+
+// Calculate average syllables per word
+const calculateAvgSyllables = useCallback((text: string): number => {
+  const words = text.toLowerCase().match(/\b[a-z]+\b/g) || [];
+  if (words.length === 0) return 0;
+  
+  const totalSyllables = words.reduce((total, word) => {
+    return total + countSyllables(word);
+  }, 0);
+  
+  return totalSyllables / words.length;
+}, [countSyllables]);
 
   // Calculate reading level using Flesch Reading Ease formula
 const readingLevel = useMemo(() => {
