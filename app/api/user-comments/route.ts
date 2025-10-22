@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { userComments } from '@/lib/db/schema';
 import { eq, desc } from 'drizzle-orm';
+import { UserCacheManager } from '@/lib/cache';
 
 // GET /api/user-comments?userId=xxx&page=1&limit=10
 export async function GET(request: NextRequest) {
@@ -16,6 +17,13 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'User ID is required' }, { status: 400 });
     }
 
+    // Try to get from cache first
+    const cachedComments = await UserCacheManager.getCachedComments(userId, page, limit);
+    if (cachedComments) {
+      return NextResponse.json(cachedComments);
+    }
+
+    // If not in cache, fetch from database
     // Get user's comments
     const comments = await db
       .select({
@@ -39,7 +47,7 @@ export async function GET(request: NextRequest) {
 
     const hasMore = totalCount.length > offset + limit;
 
-    return NextResponse.json({
+    const response = {
       comments,
       pagination: {
         page,
@@ -47,7 +55,12 @@ export async function GET(request: NextRequest) {
         total: totalCount.length,
         hasMore,
       },
-    });
+    };
+
+    // Cache the result
+    await UserCacheManager.cacheComments(userId, page, limit, response);
+
+    return NextResponse.json(response);
   } catch (error) {
     console.error('Error fetching user comments:', error);
     return NextResponse.json({ error: 'Failed to fetch user comments' }, { status: 500 });

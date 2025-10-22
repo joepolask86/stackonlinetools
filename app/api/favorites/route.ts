@@ -3,6 +3,7 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { userFavorites } from "@/lib/db/schema";
 import { eq, and } from "drizzle-orm";
+import { UserCacheManager } from "@/lib/cache";
 
 // GET /api/favorites - Get user's favorites
 export async function GET(request: NextRequest) {
@@ -15,14 +16,26 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    // Try to get from cache first
+    const cachedFavorites = await UserCacheManager.getCachedFavorites(session.user.id);
+    if (cachedFavorites) {
+      return NextResponse.json(cachedFavorites);
+    }
+
+    // If not in cache, fetch from database
     const favorites = await db
       .select()
       .from(userFavorites)
       .where(eq(userFavorites.userId, session.user.id));
 
-    return NextResponse.json({ 
+    const response = { 
       favorites: favorites.map(fav => fav.toolId) 
-    });
+    };
+
+    // Cache the result
+    await UserCacheManager.cacheFavorites(session.user.id, response);
+
+    return NextResponse.json(response);
   } catch (error) {
     console.error("Error fetching favorites:", error);
     return NextResponse.json(
@@ -74,6 +87,9 @@ export async function POST(request: NextRequest) {
       toolId: toolId,
     });
 
+    // Invalidate cache
+    await UserCacheManager.invalidateFavoritesCache(session.user.id);
+
     return NextResponse.json({ message: "Added to favorites" });
   } catch (error) {
     console.error("Error adding favorite:", error);
@@ -114,6 +130,9 @@ export async function DELETE(request: NextRequest) {
           eq(userFavorites.toolId, toolId)
         )
       );
+
+    // Invalidate cache
+    await UserCacheManager.invalidateFavoritesCache(session.user.id);
 
     return NextResponse.json({ message: "Removed from favorites" });
   } catch (error) {

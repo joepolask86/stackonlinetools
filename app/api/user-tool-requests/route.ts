@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { toolRequests } from '@/lib/db/schema';
 import { eq, desc } from 'drizzle-orm';
+import { UserCacheManager } from '@/lib/cache';
 
 // GET /api/user-tool-requests?userId=xxx&page=1&limit=10
 export async function GET(request: NextRequest) {
@@ -16,6 +17,13 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'User ID is required' }, { status: 400 });
     }
 
+    // Try to get from cache first
+    const cachedRequests = await UserCacheManager.getCachedToolRequests(userId, page, limit);
+    if (cachedRequests) {
+      return NextResponse.json(cachedRequests);
+    }
+
+    // If not in cache, fetch from database
     // Get user's tool requests
     const requests = await db
       .select({
@@ -42,15 +50,20 @@ export async function GET(request: NextRequest) {
 
     const hasMore = totalCount.length > offset + limit;
 
-    return NextResponse.json({
-      requests,
+    const response = {
+      toolRequests: requests,
       pagination: {
         page,
         limit,
         total: totalCount.length,
         hasMore,
       },
-    });
+    };
+
+    // Cache the result
+    await UserCacheManager.cacheToolRequests(userId, page, limit, response);
+
+    return NextResponse.json(response);
   } catch (error) {
     console.error('Error fetching user tool requests:', error);
     return NextResponse.json({ error: 'Failed to fetch user tool requests' }, { status: 500 });

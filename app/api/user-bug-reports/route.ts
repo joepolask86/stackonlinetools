@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { bugReports } from '@/lib/db/schema';
 import { eq, desc } from 'drizzle-orm';
+import { UserCacheManager } from '@/lib/cache';
 
 // GET /api/user-bug-reports?userId=xxx&page=1&limit=10
 export async function GET(request: NextRequest) {
@@ -16,14 +17,20 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'User ID is required' }, { status: 400 });
     }
 
+    // Try to get from cache first
+    const cachedReports = await UserCacheManager.getCachedBugReports(userId, page, limit);
+    if (cachedReports) {
+      return NextResponse.json(cachedReports);
+    }
+
+    // If not in cache, fetch from database
     // Get user's bug reports
-    const bugReportsData = await db
+    const reports = await db
       .select({
         id: bugReports.id,
-        toolId: bugReports.toolId,
         title: bugReports.title,
         description: bugReports.description,
-        severity: bugReports.severity,
+        toolId: bugReports.toolId,
         status: bugReports.status,
         createdAt: bugReports.createdAt,
         updatedAt: bugReports.updatedAt,
@@ -42,15 +49,20 @@ export async function GET(request: NextRequest) {
 
     const hasMore = totalCount.length > offset + limit;
 
-    return NextResponse.json({
-      bugReports: bugReportsData,
+    const response = {
+      reports,
       pagination: {
         page,
         limit,
         total: totalCount.length,
         hasMore,
       },
-    });
+    };
+
+    // Cache the result
+    await UserCacheManager.cacheBugReports(userId, page, limit, response);
+
+    return NextResponse.json(response);
   } catch (error) {
     console.error('Error fetching user bug reports:', error);
     return NextResponse.json({ error: 'Failed to fetch user bug reports' }, { status: 500 });

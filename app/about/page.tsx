@@ -8,6 +8,9 @@ import { Home, ChevronRight } from "lucide-react";
 
 export const metadata = commonMetadata.about;
 
+// Force static generation for maximum performance
+export const dynamic = 'force-static';
+
 export default function AboutPage() {
   return (
     <div className="min-h-screen flex flex-col">
