@@ -11,6 +11,9 @@ import { commonMetadata } from "@/lib/metadata";
 
 export const metadata = commonMetadata.home;
 
+// Force static generation for maximum performance
+export const dynamic = 'force-static';
+
 export default function HomePage() {
   const textTools = getToolsByCategory("text");
   const encodingTools = getToolsByCategory("encoding");

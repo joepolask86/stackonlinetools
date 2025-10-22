@@ -24,6 +24,17 @@ const categorySlugMap: Record<string, ToolCategory> = {
   "misc-tools": "misc",
 };
 
+// Generate static params for all category pages
+export async function generateStaticParams() {
+  return Object.keys(categorySlugMap).map((category) => ({
+    category,
+  }));
+}
+
+// Enable ISR with revalidation every 12 hours (43200 seconds)
+// Category pages may change more frequently due to new tools being added
+export const revalidate = 43200;
+
 // Generate metadata for category pages
 export async function generateMetadata({ params }: { params: Promise<{ category: string }> }) {
   const { category } = await params;

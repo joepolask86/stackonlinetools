@@ -5,6 +5,9 @@ import Link from "next/link";
 
 export const metadata = commonMetadata.terms;
 
+// Force static generation for maximum performance
+export const dynamic = 'force-static';
+
 export default function TermsOfServicePage() {
   return (
     <div className="min-h-screen flex flex-col">

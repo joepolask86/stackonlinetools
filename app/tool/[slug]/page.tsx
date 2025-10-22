@@ -1,4 +1,4 @@
-import { getToolBySlug } from "@/lib/tool-registry";
+import { getToolBySlug, toolsMetadata } from "@/lib/tool-registry";
 import { ToolDocsLayout } from "@/components/tools/tool-docs-layout";
 import { commonMetadata } from "@/lib/metadata";
 import dynamic from "next/dynamic";
@@ -21,6 +21,16 @@ interface ToolPageProps {
     slug: string;
   }>;
 }
+
+// Generate static params for all tool pages
+export async function generateStaticParams() {
+  return toolsMetadata.map((tool) => ({
+    slug: tool.slug,
+  }));
+}
+
+// Enable ISR with revalidation every 24 hours (86400 seconds)
+export const revalidate = 86400;
 
 // 404 Component
 function NotFoundPage() {

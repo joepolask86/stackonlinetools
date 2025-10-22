@@ -4,6 +4,9 @@ import { commonMetadata } from "@/lib/metadata";
 
 export const metadata = commonMetadata.privacy;
 
+// Force static generation for maximum performance
+export const dynamic = 'force-static';
+
 export default function PrivacyPolicyPage() {
   return (
     <div className="min-h-screen flex flex-col">
