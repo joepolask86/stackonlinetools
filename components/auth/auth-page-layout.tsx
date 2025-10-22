@@ -25,7 +25,7 @@ export function AuthPageLayout({ children, title, subtitle }: AuthPageLayoutProp
       
       // Use Better-Auth client for social login
       await authClient.signIn.social({
-        provider: provider as 'google' | 'github' | 'twitter' | 'facebook',
+        provider: provider as 'google' | 'github' | 'twitter' | 'facebook' | 'reddit' | 'discord' | 'linkedin',
         callbackURL: redirectUrl,
       });
     } catch (error) {
@@ -89,7 +89,7 @@ export function AuthPageLayout({ children, title, subtitle }: AuthPageLayoutProp
         <div className="max-w-md mx-auto w-full">
           {/* Header */}
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">
+            <h2 className="text-3xl font-semibold text-gray-900 mb-2">
               {title}
             </h2>
             <p className="text-gray-600">
@@ -158,6 +158,51 @@ export function AuthPageLayout({ children, title, subtitle }: AuthPageLayoutProp
               />
               Continue with Facebook
             </Button>
+
+            <Button
+              variant="outline"
+              className="w-72 h-12 text-md font-normal justify-start hover:bg-white shadow-none border-gray-200 hover:border-gray-300"
+              onClick={() => handleSocialLogin("reddit")}
+            >
+              <Image 
+                src="/assets/providers/reddit.svg" 
+                alt="Reddit" 
+                width={24} 
+                height={24} 
+                className="mr-5" 
+              />
+              Continue with Reddit
+            </Button>
+
+            <Button
+              variant="outline"
+              className="w-72 h-12 text-md font-normal justify-start hover:bg-white shadow-none border-gray-200 hover:border-gray-300"
+              onClick={() => handleSocialLogin("linkedin")}
+            >
+              <Image 
+                src="/assets/providers/linkedin.svg" 
+                alt="LinkedIn" 
+                width={24} 
+                height={24} 
+                className="mr-5" 
+              />
+              Continue with LinkedIn
+            </Button>
+
+            <Button
+              variant="outline"
+              className="w-72 h-12 text-md font-normal justify-start hover:bg-white shadow-none border-gray-200 hover:border-gray-300"
+              onClick={() => handleSocialLogin("discord")}
+            >
+              <Image 
+                src="/assets/providers/discord.svg" 
+                alt="Discord" 
+                width={24} 
+                height={24} 
+                className="mr-5" 
+              />
+              Continue with Discord
+            </Button>
           </div>
 
           {/* Additional Content */}
@@ -180,7 +225,7 @@ export function AuthPageLayout({ children, title, subtitle }: AuthPageLayoutProp
           <div className="text-center mt-6">
             <Link 
               href="/" 
-              className="text-sm text-orange-600 hover:text-gray-800 transition-colors"
+              className="text-md text-orange-600 hover:text-gray-800 transition-colors"
             >
               ← Back to home
             </Link>
