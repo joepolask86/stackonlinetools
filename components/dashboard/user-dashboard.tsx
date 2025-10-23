@@ -56,7 +56,7 @@ export function UserDashboard({ user }: UserDashboardProps) {
   const { bugReports: userBugReports, isLoading: bugReportsLoading } = useUserBugReports({ userId: user.id });
   
   // Get tool metadata for favorites
-  const allFavoriteTools = favorites
+  const allFavoriteTools = (favorites || [])
     .map(toolId => {
       // Find tool by ID in the registry
       const tool = getToolBySlug(toolId);
@@ -94,7 +94,7 @@ export function UserDashboard({ user }: UserDashboardProps) {
   });
 
   // Process user comments with tool information
-  const commentsWithToolInfo = userComments.map(comment => {
+  const commentsWithToolInfo = (userComments || []).map(comment => {
     const tool = getToolBySlug(comment.toolId);
     return {
       id: comment.id,
@@ -106,7 +106,7 @@ export function UserDashboard({ user }: UserDashboardProps) {
   });
 
   // Process user tool requests with formatted data
-  const requestsWithFormattedData = userToolRequests.map(request => ({
+  const requestsWithFormattedData = (userToolRequests || []).map(request => ({
     id: request.id,
     toolName: request.toolName,
     description: request.description,
@@ -116,7 +116,7 @@ export function UserDashboard({ user }: UserDashboardProps) {
   }));
 
   // Process user bug reports with tool information
-  const bugReportsWithToolInfo = userBugReports.map(bugReport => {
+  const bugReportsWithToolInfo = (userBugReports || []).map(bugReport => {
     const tool = getToolBySlug(bugReport.toolId);
     return {
       id: bugReport.id,

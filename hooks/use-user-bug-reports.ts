@@ -12,7 +12,7 @@ export interface UserBugReport {
 }
 
 export interface UserBugReportsResponse {
-  bugReports: UserBugReport[];
+  reports: UserBugReport[];
   pagination: {
     page: number;
     limit: number;
@@ -54,11 +54,11 @@ export function useUserBugReports({ userId, limit = 10 }: UseUserBugReportsOptio
 
       const data: UserBugReportsResponse = await response.json();
 
-      if (append) {
-        setBugReports(prev => [...prev, ...data.bugReports]);
-      } else {
-        setBugReports(data.bugReports);
-      }
+      if (page > 1) {
+          setBugReports(prev => [...prev, ...data.reports]);
+        } else {
+          setBugReports(data.reports || []);
+        }
 
       setPagination(data.pagination);
     } catch (err) {

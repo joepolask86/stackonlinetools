@@ -50,7 +50,7 @@ export async function GET(request: NextRequest) {
     const hasMore = totalCount.length > offset + limit;
 
     const response = {
-      reports,
+      reports: reports,
       pagination: {
         page,
         limit,

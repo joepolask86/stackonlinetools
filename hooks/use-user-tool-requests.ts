@@ -12,7 +12,7 @@ export interface UserToolRequest {
 }
 
 export interface UserToolRequestsResponse {
-  requests: UserToolRequest[];
+  toolRequests: UserToolRequest[];
   pagination: {
     page: number;
     limit: number;
@@ -55,9 +55,9 @@ export function useUserToolRequests({ userId, limit = 10 }: UseUserToolRequestsO
       const data: UserToolRequestsResponse = await response.json();
 
       if (append) {
-        setRequests(prev => [...prev, ...data.requests]);
+        setRequests(prev => [...prev, ...data.toolRequests]);
       } else {
-        setRequests(data.requests);
+        setRequests(data.toolRequests || []);
       }
 
       setPagination(data.pagination);
