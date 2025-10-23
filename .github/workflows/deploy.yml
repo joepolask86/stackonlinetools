@@ -33,7 +33,7 @@ jobs:
             git reset --hard origin/main
 
             echo "🔹 Installing dependencies..."
-            npm ci --omit=dev
+            npm ci
 
             echo "🔹 Building project..."
             npm run build
