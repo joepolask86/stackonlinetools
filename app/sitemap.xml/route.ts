@@ -75,13 +75,15 @@ export async function GET() {
       priority: 0.8,
     }));
 
-  // Individual tool pages
-  const toolPages = toolsMetadata.map(tool => ({
-    url: `${baseUrl}/tool/${tool.slug}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly",
-    priority: 0.7,
-  }));
+  // Individual tool pages (only implemented tools)
+  const toolPages = toolsMetadata
+    .filter(tool => tool.status === "implemented")
+    .map(tool => ({
+      url: `${baseUrl}/tool/${tool.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    }));
 
   const allPages = [...staticPages, ...categoryPages, ...toolPages];
 
