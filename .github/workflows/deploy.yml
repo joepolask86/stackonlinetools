@@ -33,7 +33,10 @@ jobs:
             git reset --hard origin/main
 
             echo "🔹 Installing dependencies..."
-            npm ci --omit=dev
+            npm ci
+
+            echo "🔹 Building project..."
+            npm run build
 
             echo "🔹 Restarting PM2 process..."
             pm2 restart stack-online-tools || pm2 start npm --name "stack-online-tools" -- run start
