@@ -107,7 +107,7 @@ export function Footer() {
               <Facebook className="h-5 w-5" />
             </Link>
             <Link
-              href="https://twitter.com/stackonlinetools"
+              href="https://x.com/stackonlinetool"
               target="_blank"
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-primary transition-colors p-2 rounded-lg hover:bg-gray-100"
