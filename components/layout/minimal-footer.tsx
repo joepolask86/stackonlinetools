@@ -5,7 +5,7 @@ export function MinimalFooter() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t bg-white">
+    <footer className="bg-white">
       <div className="max-w-6xl mx-auto px-6 py-3">
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           <p className="text-sm text-muted-foreground">

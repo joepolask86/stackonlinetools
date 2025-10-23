@@ -191,7 +191,7 @@ export default function JsonFormatter() {
         <div className="space-y-2">
           <div className="flex items-center justify-end">
             <div className="flex gap-2">
-              <Button variant="ghost" size="sm" onClick={handleCopy} className="w-auto h-11 gap-0 space-x-0 px-6 rounded-full font-medium text-center text-md bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-primary-foreground hover:-translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:from-blue-600 disabled:hover:to-indigo-600">
+              <Button variant="ghost" size="sm" onClick={handleCopy} className="w-auto h-11 gap-0 space-x-0 px-6 rounded-full font-medium text-center text-md bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white hover:text-white hover:-translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:from-blue-600 disabled:hover:to-indigo-600">
                 <Copy className="mr-2 h-4 w-4" />
                 Copy
               </Button>

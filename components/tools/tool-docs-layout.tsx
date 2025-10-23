@@ -227,7 +227,7 @@ export function ToolDocsLayout({ metadata, children }: ToolDocsLayoutProps) {
         </aside>
 
          {/* Scrollable Main Content */}
-         <main className="flex-1 overflow-y-auto lg:ml-80 bg-gray-100/50">
+         <main className="flex-1 overflow-y-auto lg:ml-80 bg-gray-100">
             <div className="flex-1 max-w-6xl mx-auto px-6 py-8 mb-8 text-md">
              {/* Breadcrumb */}
              <Breadcrumb 

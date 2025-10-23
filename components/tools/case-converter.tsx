@@ -211,7 +211,7 @@ export default function CaseConverter() {
               disabled={!input.trim()}
               className="w-auto h-11 gap-0 space-x-0 px-6 rounded-full font-medium text-center text-md bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-primary-foreground hover:-translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:from-blue-600 disabled:hover:to-indigo-600"
             >
-              <Download className="h-4 w-4 mr-2" /> Save
+              <Download className="h-4 w-4 mr-2" /> Download
             </Button>
             <Button 
               onClick={handleCopy}

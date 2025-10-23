@@ -16,41 +16,38 @@ export const toolsMetadata: ToolMetadata[] = [
     status: "implemented",
     isTrending: true,
     contentHtml: `
-      <h2>What is Online Case Converter?</h2>
-      
-      <p>
-        The Online Case Converter is a <strong>free online tool for converting text to different cases</strong>. 
-        It helps you transform text from one case format to another, making it perfect for fixing wrongly 
-        formatted text or converting text for specific purposes. This tool is particularly useful for writers, 
-        editors, and content creators who need to format text consistently across different platforms and applications.
-      </p>
-      
-      <p>
-        The tool supports multiple languages including English, German, French, Spanish, Italian, Dutch, 
-        Portuguese, Russian, Turkish, Arabic, Chinese, Japanese, Korean, and many more, making it a 
-        versatile solution for international text formatting needs.
-      </p>
-      
-      <h2>How to use Online Case Converter?</h2>
-      
-      <p>You can convert your text into any case by following these simple steps. Our case converter tool is designed to be intuitive and user-friendly, allowing you to transform text quickly and efficiently.</p>
-      
-      <ol>
-        <li>First, paste your text in the text area you want to convert. You can type directly or paste from any source.</li>
-        <li>Select the case from the list you want to convert. The tool converts the text immediately after you select the case. If you modify your text and want to apply the same format again, just use the "Apply" button.</li>
-        <li>You can use the "Copy" button to copy the converted text into your clipboard. In addition, you can download the output as a .txt file by using the "Download" button.</li>
-      </ol>
-      
-      <h3>Available Case Types:</h3>
-      
+      <h2>What is Online Case Converter?</h1>
+      <p><strong>Online case converter</strong> is a <strong>text transformation tool</strong> that instantly changes the capitalization style of your text without manual editing. Whether you're a content writer, developer, student, or social media manager, this free utility streamlines the process of reformatting text to match specific style guidelines or presentation requirements.</p>
+      <p>This <strong>web-based application</strong> eliminates the tedious task of retyping content when you need different <strong>letter case formats</strong>. Simply paste your text into the converter, select your desired <strong>capitalization style</strong>, and receive professionally formatted results in seconds. The tool supports various text case transformations, making it indispensable for document formatting, coding conventions, email communication, and digital content creation.</p>
+      <p><strong>Case conversion tools</strong> are essential for maintaining consistency across professional documents, adhering to SEO best practices, and ensuring proper <strong>text formatting</strong> for different platforms. They help users avoid <strong>capitalization errors</strong> that can undermine credibility and professionalism in written communication.</p>
+      <h2>Available Letter Case Types:</h2>
       <ul>
-        <li><strong>Sentence Case:</strong> First letter of all sentences will be uppercase while remaining will be lowercase. Sentences will be identified with punctuations which ends a sentence such as dot, question mark or exclamation mark.</li>
-        <li><strong>Title Case:</strong> First letters of each word are uppercase while remaining will be lowercase.</li>
-        <li><strong>Uppercase:</strong> All letters in the text will be uppercase.</li>
-        <li><strong>Lowercase:</strong> All letters in the text will be lowercase.</li>
-        <li><strong>Mixed Case:</strong> It is a sequence of one letter uppercase, one letter lowercase for each word.</li>
-        <li><strong>Inverse Case:</strong> It is a sequence of one letter lowercase, one letter uppercase for each word.</li>
+      <li><strong>Sentence case</strong>: Capitalizes only the first letter of each sentence while converting the rest to lowercase. Perfect for standard paragraph writing and natural-looking text that follows grammatical conventions.</li>
+      <li><strong>lower case</strong>: Transforms all characters into lowercase letters. Ideal for creating <strong>URLs</strong>, email addresses, hashtags, and programming identifiers that require uniform lowercase formatting.</li>
+      <li><strong>UPPER CASE</strong>: Converts every letter to uppercase characters. Commonly used for <strong>headings</strong>, acronyms, emphasis, and attention-grabbing announcements in marketing materials.</li>
+      <li><strong>Capitalize Case</strong>: Capitalizes the first letter of every word while keeping other letters lowercase. Useful for proper nouns, names, and titles where each word requires initial capitalization.</li>
+      <li><strong>aLtErNaTiNg cAsE</strong>: Creates a pattern alternating between lowercase and uppercase letters. </li>
+      <li><strong>Title Case</strong>: Applies capitalization rules for titles by capitalizing major words while keeping articles, conjunctions, and prepositions lowercase.</li>
+      <li><strong>Title Case</strong>: Applies capitalization rules for titles by capitalizing major words while keeping articles, conjunctions, and prepositions lowercase.
+      </li>
+      <li><strong>InVeRsE CaSe</strong>: Reverses the existing capitalization pattern, converting uppercase to lowercase and vice versa.</li>
       </ul>
+
+      <h2>How to Use the Case Converter?</h2>
+      <p>Using this <strong>text case converter</strong> is straightforward and requires no technical expertise. The intuitive interface ensures that anyone can transform their text within seconds, regardless of technical background.</p>
+      <p>Follow these simple steps to convert your text to any desired capitalization format:</p>
+      <ol>
+      <li><strong>Copy Your Text</strong>: Select and copy the text you want to convert from any source—word processors, emails, websites, PDFs, or note-taking applications.</li>
+      <li><strong>Paste Into Input Field</strong>: Click on the text area and paste your copied content into the converter's input box using Ctrl+V (Windows) or Cmd+V (Mac).</li>
+      <li>
+      <strong>Select Desired Case Format</strong>: Choose your preferred <strong>case style</strong> by clicking the corresponding button from the available options displayed on the interface.</li>
+      <li>
+      <strong>View Instant Results</strong>: The tool automatically <strong>processes your text</strong> and displays the converted result in real-time without any delay or loading time.</li>
+      <li>
+      <strong>Copy Converted Text</strong>: Click the copy button or manually select the transformed text and copy it to your clipboard for immediate use.</li>
+      <li><strong>Paste to Destination</strong>: Insert your newly formatted text into your target document, email, social media post, or any other application.</li>
+      </ol>
+      <p>The <strong>case converter</strong> handles text of any length efficiently and preserves original spacing, punctuation marks, and special characters throughout the conversion process.</p>
     `
   },
   {
@@ -64,41 +61,41 @@ export const toolsMetadata: ToolMetadata[] = [
     status: "implemented",
     contentHtml: `
       <h2>What is Online Word Counter?</h2>
-      
-      <p>
-        The Online Word Counter is a <strong>free tool for analyzing text content</strong>. 
-        It provides comprehensive statistics about your text including word count, character count, 
-        sentence count, paragraph count, and reading time estimates.
-      </p>
-      
-      <p>
-        This tool is perfect for writers, students, content creators, and professionals who need 
-        to track their writing progress, meet word count requirements, or analyze text statistics 
-        for various purposes.
-      </p>
-      
-      <h2>How to use Online Word Counter?</h2>
-      
-      <p>Simply paste or type your text to get instant statistics about your content.</p>
-      
+      <p><strong>Online Word Counter</strong> is a free and efficient digital tool designed to help writers, students, professionals, and content creators instantly calculate the number of words, characters, sentences, and paragraphs in their text. Whether you’re crafting an essay, social media caption, SEO article, or professional email, this tool ensures your writing stays within specific limits while maintaining clarity and conciseness.</p>
+      <p>In today’s fast-paced digital environment, maintaining the right word count is crucial for readability, engagement, and compliance with platform restrictions. For example, search engines favor articles with optimal word lengths, and social media platforms have strict character caps. This is where an online word counter becomes invaluable—it saves time, boosts accuracy, and helps refine your writing process.</p>
+      <p>Beyond simple word counting, modern tools offer deeper insights into text composition. They can highlight keyword frequency, estimate reading time, and detect repetition or imbalance in writing tone. This makes them indispensable for content strategists, copywriters, students, and even developers testing text-based UI components.</p>
+      <p>Key benefits of using an online word counter include:</p>
       <ul>
-        <li>Paste your text in the input area or start typing</li>
-        <li>View real-time statistics including word count, character count, and reading time</li>
-        <li>Get insights into your text structure with sentence and paragraph counts</li>
-        <li>Use the statistics for writing goals, SEO optimization, or content analysis</li>
+      <li><strong>Instant results:</strong> Get real-time counts as you type or paste your text.</li>
+      <li><strong>Improved productivity:</strong> Avoid manual counting or switching between apps.</li>
+      <li><strong>Writing precision:</strong> Stay within required limits for essays, blogs, or ads.</li>
+      <li><strong>SEO optimization:</strong> Monitor keyword density for better search rankings.</li>
+      <li><strong>Error-free editing:</strong> Spot lengthy sentences or unnecessary filler words.</li>
       </ul>
-      
-      <h3>What statistics are provided?</h3>
-      
+      <p>In short, an online word counter empowers you to write smarter and more efficiently by providing instant,>How to Use Online Word Counter?</h2>
+      <p>Using an online word counter is straightforward and requires no installation or login. You can start analyzing your text in seconds by following these simple steps:</p>
+      <ol>
+      <li><strong>Open the tool page</strong>: Navigate to the word counter page in your web browser.</li>
+      <li><strong>Enter or paste text</strong>: Copy your content and paste it into the text box, or start typing directly into the editor</li>
+      <li><strong>View live statistics</strong>: The tool will automatically update word, character, and sentence counts in real time as you type.
+      </li>
+      <li><strong>Edit and optimize</strong>: Make changes to your content while watching how the counts adjust dynamically.
+      </li>
+      <li><strong>Copy or download results (optional)</strong>: Once satisfied, you can copy your edited text or export it for further use.</li>
+      </ol>
+      <p>This intuitive process helps you stay focused on writing without the distraction of manual calculations or formatting tools.</p>
+      <h2>What Statistics are Provided?</h2>
+      <p>A robust online word counter provides comprehensive text analysis to give users a deeper understanding of their writing. The common statistics include:</p>
       <ul>
-        <li><strong>Character Count:</strong> Total number of characters including spaces</li>
-        <li><strong>Character Count (no spaces):</strong> Total characters excluding spaces</li>
-        <li><strong>Word Count:</strong> Number of words in your text</li>
-        <li><strong>Sentence Count:</strong> Number of sentences</li>
-        <li><strong>Paragraph Count:</strong> Number of paragraphs</li>
-        <li><strong>Reading Time:</strong> Estimated time to read the text</li>
-        <li><strong>Speaking Time:</strong> Estimated time to speak the text</li>
+      <li><strong>Word Count:</strong> Total number of words in your text.</li>
+      <li><strong>Character Count:</strong> Number of characters, with or without spaces.</li>
+      <li><strong>Sentence Count:</strong> Identifies how many complete sentences are present.</li>
+      <li><strong>Paragraph Count:</strong> Useful for checking structure and readability.</li>
+      <li><strong>Reading Time Estimate:</strong> Calculates how long it would take an average reader to read the text.</li>
+      <li><strong>Keyword Density:</strong> Shows how often specific words appear, aiding in SEO optimization.</li>
+      <li><strong>Longest and Shortest Words:</strong> Highlights extremes in word length for stylistic balance.</li>
       </ul>
+      <p>These insights allow you to fine-tune your content for clarity, engagement, and compliance—ensuring your writing performs effectively across academic, professional, and digital platforms.</p>
     `
   },
   {
@@ -215,39 +212,52 @@ export const toolsMetadata: ToolMetadata[] = [
     status: "implemented",
     isTrending: true,
     contentHtml: `
-      <h2>What is Base64 Encoder/Decoder?</h2>
-      
-      <p>
-        The Base64 Encoder/Decoder is a <strong>free online tool for encoding and decoding data</strong>. 
-        Base64 is a binary-to-text encoding scheme that represents binary data in an ASCII string format.
-      </p>
-      
-      <p>
-        Base64 encoding is commonly used in web development, email systems, and data transmission 
-        where binary data needs to be stored or transferred over text-based protocols. It's widely 
-        used for embedding images in HTML/CSS, storing binary data in JSON, and many other applications.
-      </p>
-      
-      <h2>How to use Base64 Encoder/Decoder?</h2>
-      
-      <p>Convert your data to Base64 format or decode Base64 strings with ease.</p>
-      
+      <h2>What is Online Base64 Encoder/Decoder?</h2>
+      <p><strong>Online Base64 Encoder/Decoder</strong> is a web-based utility that converts binary data into ASCII text format and vice versa using the Base64 encoding scheme. Base64 is a binary-to-text encoding method that represents binary data in an ASCII string format by translating it into a radix-64 representation. This encoding scheme uses 64 different ASCII characters (A-Z, a-z, 0-9, +, and /) to represent data, making it possible to transmit binary files through channels that only support text content.</p>
+      <p>The encoding process works by taking three bytes of binary data (24 bits) and dividing them into four groups of six bits each. Each 6-bit group is then mapped to one of the 64 characters in the Base64 alphabet. This transformation increases the data size by approximately 33%, but ensures safe transmission across systems that might otherwise corrupt binary data.</p>
+      <p>Base64 encoding is extensively used in various applications and protocols:</p>
       <ul>
-        <li>Enter your text or data in the input field</li>
-        <li>Click "Encode" to convert to Base64 format</li>
-        <li>Click "Decode" to convert Base64 back to original text</li>
-        <li>Copy the result or download as a file</li>
+      <li><strong>Email Attachments</strong>: MIME (Multipurpose Internet Mail Extensions) uses Base64 to encode file attachments for email transmission</li>
+      <li><strong>Data URLs</strong>: Embedding images and other resources directly into HTML, CSS, or JSON files</li>
+      <li><strong>Authentication</strong>: Encoding credentials in HTTP Basic Authentication headers</li>
+      <li><strong>API Communication</strong>: Transmitting binary data like images or documents through JSON APIs</li>
+      <li><strong>Certificates and Keys</strong>: Storing cryptographic keys and SSL/TLS certificates in PEM format</li>
+      <li><strong>Web Development</strong>: Encoding data for safe inclusion in URLs or cookies</li>
       </ul>
-      
-      <h3>Common Use Cases:</h3>
-      
+      <p>Here's a simple encoding example:</p>
+      <pre><span>Original Text: Hello World!</span><p>Base64 Encoded: SGVsbG8gV29ybGQh</p></pre>
+      <p>When decoded, the Base64 string returns to its original form:</p>
+      <pre><span>Base64 Encoded: SGVsbG8gV29ybGQh</span><p>Decoded Text: Hello World!</p></pre>
+      <h2>Is Base64 encoding safe?</h2>
+      <p>Base64 encoding is <strong>not a security mechanism</strong> and should never be used as a method of encryption or data protection. It is simply an encoding format designed for data representation and transport compatibility, not for confidentiality. Anyone with access to Base64-encoded data can easily decode it back to its original form using any decoder tool.</p>
+      <p>Key security considerations:</p>
       <ul>
-        <li><strong>Web Development:</strong> Embed images in HTML/CSS using data URIs</li>
-        <li><strong>API Integration:</strong> Encode binary data for JSON transmission</li>
-        <li><strong>Email Attachments:</strong> Encode files for email transmission</li>
-        <li><strong>Data Storage:</strong> Store binary data in text-based databases</li>
-        <li><strong>Configuration Files:</strong> Include binary data in config files</li>
+      <li><strong>Not encryption</strong>: Base64 provides zero cryptographic protection; it's reversible without any key or password</li>
+      <li><strong>Obfuscation only</strong>: While it makes data unreadable at first glance, it offers no real security against intentional inspection</li>
+      <li><strong>Increased data size</strong>: The 33% size increase can expose more data to potential interception</li>
+      <li><strong>Should be combined with encryption</strong>: For sensitive data, use proper encryption (AES, RSA) before Base64 encoding</li>
       </ul>
+      <p>However, Base64 is safe for its intended purposes: ensuring data integrity during transmission and making binary data compatible with text-based systems.</p>
+      <h2>How to use Base64 Encoder/Decoder Tool?</h2>
+      <p>Using an online Base64 encoder/decoder is straightforward:</p>
+      <p><strong>Encoding Process:</strong></p>
+      <ol>
+      <li>Paste or type your text/data into the input field</li>
+      <li>Click the "Encode" button</li>
+      <li>Copy the Base64-encoded output for use in your application</li>
+      </ol>
+      <p><strong>Decoding Process:</strong></p>
+      <ol>
+      <li>Paste the Base64-encoded string into the input field</li>
+      <li>Click the "Decode" button</li>
+      <li>View and copy the decoded original content</li>
+      </ol>
+      <p><strong>Example workflow:</strong></p>
+      <pre><span>Input: admin:password123</span>
+<span>Encoded: YWRtaW46cGFzc3dvcmQxMjM=</span><br/>
+<span>Input: YWRtaW46cGFzc3dvcmQxMjM=</span>
+<span>Decoded: admin:password123</span></pre>
+      <p>Most tools also support file encoding/decoding, allowing you to upload files directly and download the encoded or decoded results.</p>
     `
   },
   {
@@ -316,42 +326,60 @@ export const toolsMetadata: ToolMetadata[] = [
     status: "implemented",
     isTrending: true,
     contentHtml: `
-      <h2>What is JSON Formatter?</h2>
-      
-      <p>
-        The JSON Formatter is a <strong>free online tool for formatting, validating, and beautifying JSON data</strong>. 
-        It helps you organize and validate JSON strings, making them more readable and ensuring they follow 
-        proper JSON syntax standards.
-      </p>
-      
-      <p>
-        This tool is essential for developers, data analysts, and anyone working with JSON data. It provides 
-        syntax highlighting, error detection, and various formatting options to make your JSON data clean 
-        and professional.
-      </p>
-      
-      <h2>How to use JSON Formatter?</h2>
-      
-      <p>Format and validate your JSON data with our easy-to-use interface.</p>
-      
-      <ul>
-        <li>Paste your JSON data into the input field</li>
-        <li>Click "Format" to beautify and validate your JSON</li>
-        <li>View formatted output with syntax highlighting</li>
-        <li>Copy the formatted JSON or download as a file</li>
-        <li>Check for syntax errors and validation issues</li>
-      </ul>
-      
-      <h3>Features:</h3>
-      
-      <ul>
-        <li><strong>JSON Validation:</strong> Check for syntax errors and invalid JSON</li>
-        <li><strong>Pretty Print:</strong> Format JSON with proper indentation and line breaks</li>
-        <li><strong>Syntax Highlighting:</strong> Color-coded JSON for better readability</li>
-        <li><strong>Minify JSON:</strong> Remove unnecessary whitespace to reduce file size</li>
-        <li><strong>Error Detection:</strong> Identify and highlight JSON syntax errors</li>
-        <li><strong>Copy & Download:</strong> Easy export options for formatted JSON</li>
-      </ul>
+      <h2>What is Online JSON Formatter?</h2>
+<p><strong>Online JSON Formatter</strong> is a web-based utility that transforms unformatted or minified JSON (JavaScript Object Notation) data into a clean, readable, and properly indented structure. JSON is a lightweight>What does a JSON format look like?</h2>
+<p>JSON format consists of key-value pairs organized in a hierarchical structure using objects and arrays. A properly formatted JSON document uses specific syntax rules and displays data in a human-readable layout with consistent indentation.</p>
+<p><strong>Unformatted JSON example:</strong></p>
+<pre><span class="code-comment"># Unformatted JSON code</span>
+<span>{"name":"John Doe","age":30,"email":"john.doe@example.com","address":{"street":"123 Main St","city":"New York","zipcode":"10001"},"hobbies":["reading","gaming","traveling"],"active":true}</span></pre>
+<p><strong>Formatted JSON example:</strong></p>
+<pre><span class="code-comment"># Formatted JSON code</span>
+<span>{
+  "name": "John Doe",
+  "age": 30,
+  "email": "john.doe@example.com",
+  "address": {
+    "street": "123 Main St",
+    "city": "New York",
+    "zipcode": "10001"
+  },
+  "hobbies": [
+    "reading",
+    "gaming",
+    "traveling"
+  ],
+  "active": true
+}</span></pre>
+<p>The formatted version clearly shows the data structure with proper indentation, making nested objects and arrays easily identifiable.</p>
+<h2 id="how-to-use-json-formatter-tool">How to use JSON Formatter Tool?</h2>
+<p>Using an online JSON formatter is a simple and efficient process:</p>
+<p><strong>Formatting Process:</strong></p>
+<ol>
+<li>Copy your unformatted or minified JSON data</li>
+<li>Paste it into the input text area</li>
+<li>Click the "Format" or "Beautify" button</li>
+<li>Review the properly formatted output with syntax highlighting</li>
+<li>Copy the formatted JSON for use in your project</li>
+</ol>
+<p><strong>Validation Process:</strong></p>
+<ol>
+<li>Paste your JSON data into the tool</li>
+<li>The tool automatically validates syntax</li>
+<li>Error messages appear if invalid syntax is detected</li>
+<li>Fix errors based on the provided guidance</li>
+</ol>
+<p><strong>Example workflow:</strong></p>
+<pre>
+<span>Input: {"product":"Laptop","price":999,"inStock":true}</span>
+
+<span class="code-comment">Formatted Output:</span>
+{
+  "product": "Laptop",
+  "price": 999,
+  "inStock": true
+}
+</pre>
+<p>Additional features often include options to minify JSON, download formatted files, or switch between different view modes for optimal data examination.</p>
     `
   },
   {
