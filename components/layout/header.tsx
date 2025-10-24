@@ -18,10 +18,24 @@ export function Header() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [categoriesOpen, setCategoriesOpen] = useState(false);
   const { open, setOpen } = useSearchModal();
-  const { user, isAuthenticated, logout } = useAuthStore();
+  const { user, isAuthenticated, logout, startSessionRefresh, stopSessionRefresh } = useAuthStore();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const pathname = usePathname();
+
+  // Initialize session refresh for immediate auth state updates
+  useEffect(() => {
+    if (isAuthenticated) {
+      startSessionRefresh();
+    } else {
+      stopSessionRefresh();
+    }
+
+    // Cleanup on unmount
+    return () => {
+      stopSessionRefresh();
+    };
+  }, [isAuthenticated, startSessionRefresh, stopSessionRefresh]);
 
   // Generate login URL with current page as redirect
   const getLoginUrl = () => {

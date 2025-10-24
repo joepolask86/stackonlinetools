@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/lib/auth';
 import { db } from '@/lib/db';
 import { userComments, users } from '@/lib/db/schema';
-import { eq, desc } from 'drizzle-orm';
+import { eq, desc, count } from 'drizzle-orm';
+import { UserCacheManager } from '@/lib/cache';
 
 // GET /api/comments?toolId=xxx&page=1&limit=10
 export async function GET(request: NextRequest) {
@@ -38,25 +39,34 @@ export async function GET(request: NextRequest) {
       .offset(offset);
 
     // Get total count for pagination
-    const totalCount = await db
-      .select({ count: userComments.id })
+    const totalCountResult = await db
+      .select({ count: count() })
       .from(userComments)
       .where(eq(userComments.toolId, toolId));
 
-    const hasMore = totalCount.length > offset + limit;
+    const total = totalCountResult[0]?.count || 0;
+    const hasMore = total > offset + limit;
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       comments,
-      pagination: {
-        page,
-        limit,
-        total: totalCount.length,
-        hasMore,
-      },
+      hasMore,
+      total,
+      page,
+      limit,
     });
+
+    // Add cache-busting headers
+    response.headers.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+    response.headers.set('Pragma', 'no-cache');
+    response.headers.set('Expires', '0');
+
+    return response;
   } catch (error) {
     console.error('Error fetching comments:', error);
-    return NextResponse.json({ error: 'Failed to fetch comments' }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Failed to fetch comments' },
+      { status: 500 }
+    );
   }
 }
 
@@ -87,6 +97,9 @@ export async function POST(request: NextRequest) {
         content: content.trim(),
       })
       .returning();
+
+    // Invalidate user's comment cache to ensure immediate updates
+    await UserCacheManager.invalidateCommentsCache(session.user.id);
 
     // Get the comment with user information
     const commentWithUser = await db

@@ -22,6 +22,7 @@ interface UserProfileDropdownProps {
 
 export function UserProfileDropdown({ user, onLogout }: UserProfileDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
@@ -44,9 +45,16 @@ export function UserProfileDropdown({ user, onLogout }: UserProfileDropdownProps
     setIsOpen(false);
   };
 
-  const handleLogout = () => {
-    onLogout();
-    setIsOpen(false);
+  const handleLogout = async () => {
+    if (isLoggingOut) return; // Prevent multiple clicks
+    
+    setIsLoggingOut(true);
+    try {
+      await onLogout();
+    } finally {
+      setIsLoggingOut(false);
+      setIsOpen(false);
+    }
   };
 
   return (
@@ -111,10 +119,24 @@ export function UserProfileDropdown({ user, onLogout }: UserProfileDropdownProps
           <div className="p-2 border-t border-gray-100">            
             <button
               onClick={handleLogout}
-              className="w-full flex items-center px-3 py-2 text-md text-red-600 rounded-md transition-colors"
+              disabled={isLoggingOut}
+              className={`w-full flex items-center px-3 py-2 text-md rounded-md transition-colors ${
+                isLoggingOut 
+                  ? 'text-gray-400 cursor-not-allowed' 
+                  : 'text-red-600 hover:bg-red-50'
+              }`}
             >
-              <LogOut className="mr-3 h-5 w-5" />
-              Sign out
+              {isLoggingOut ? (
+                <>
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-400 mr-3"></div>
+                  Signing out...
+                </>
+              ) : (
+                <>
+                  <LogOut className="mr-3 h-5 w-5" />
+                  Sign out
+                </>
+              )}
             </button>
           </div>
         </div>

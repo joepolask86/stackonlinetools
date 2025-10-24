@@ -60,10 +60,10 @@ const redis = new Redis({
 export const CACHE_CONFIG = {
   // Cache TTL in seconds
   TTL: {
-    USER_FAVORITES: 300, // 5 minutes
-    USER_COMMENTS: 600, // 10 minutes  
-    USER_BUG_REPORTS: 600, // 10 minutes
-    USER_TOOL_REQUESTS: 600, // 10 minutes
+    USER_FAVORITES: 60, // 1 minute
+    USER_COMMENTS: 120, // 2 minutes  
+    USER_BUG_REPORTS: 120, // 2 minutes
+    USER_TOOL_REQUESTS: 180, // 3 minutes
   },
   // Cache key prefixes
   KEYS: {

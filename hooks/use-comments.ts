@@ -16,12 +16,10 @@ export interface Comment {
 
 export interface CommentsResponse {
   comments: Comment[];
-  pagination: {
-    page: number;
-    limit: number;
-    total: number;
-    hasMore: boolean;
-  };
+  page: number;
+  limit: number;
+  total: number;
+  hasMore: boolean;
 }
 
 export interface UseCommentsOptions {
@@ -64,7 +62,12 @@ export function useComments({ toolId, limit = 10 }: UseCommentsOptions) {
         setComments(data.comments);
       }
 
-      setPagination(data.pagination);
+      setPagination({
+        page: data.page || page,
+        limit: data.limit || limit,
+        total: data.total || 0,
+        hasMore: data.hasMore || false,
+      });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch comments');
     } finally {
@@ -73,16 +76,36 @@ export function useComments({ toolId, limit = 10 }: UseCommentsOptions) {
   }, [toolId, limit]);
 
   const loadMore = useCallback(() => {
-    if (pagination.hasMore && !isLoading) {
+    if (pagination?.hasMore && !isLoading) {
       fetchComments(pagination.page + 1, true);
     }
-  }, [fetchComments, pagination.hasMore, pagination.page, isLoading]);
+  }, [fetchComments, pagination?.hasMore, pagination?.page, isLoading]);
 
   const addComment = useCallback(async (content: string): Promise<Comment | null> => {
     if (!toolId || !content.trim()) return null;
 
     setIsSubmitting(true);
     setError(null);
+
+    // Create optimistic comment for immediate UI feedback
+    const optimisticComment: Comment = {
+      id: `temp-${Date.now()}`,
+      content: content.trim(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      user: {
+        id: 'current-user',
+        name: 'You',
+        image: null,
+      },
+    };
+
+    // Immediately add optimistic comment to UI
+    setComments(prev => [optimisticComment, ...prev]);
+    setPagination(prev => ({
+      ...prev,
+      total: prev.total + 1,
+    }));
 
     try {
       const response = await fetch('/api/comments', {
@@ -97,6 +120,13 @@ export function useComments({ toolId, limit = 10 }: UseCommentsOptions) {
       });
 
       if (!response.ok) {
+        // Remove optimistic comment on error
+        setComments(prev => prev.filter(c => c.id !== optimisticComment.id));
+        setPagination(prev => ({
+          ...prev,
+          total: prev.total - 1,
+        }));
+
         if (response.status === 401) {
           throw new Error('Please log in to post a comment');
         }
@@ -105,14 +135,13 @@ export function useComments({ toolId, limit = 10 }: UseCommentsOptions) {
 
       const newComment: Comment = await response.json();
       
-      // Add the new comment to the beginning of the list
-      setComments(prev => [newComment, ...prev]);
-      
-      // Update pagination total
-      setPagination(prev => ({
-        ...prev,
-        total: prev.total + 1,
-      }));
+      // Replace optimistic comment with real comment
+      setComments(prev => prev.map(c => 
+        c.id === optimisticComment.id ? newComment : c
+      ));
+
+      // Trigger a refresh of user comments in dashboard by dispatching a custom event
+      window.dispatchEvent(new CustomEvent('userCommentsUpdated'));
 
       return newComment;
     } catch (err) {

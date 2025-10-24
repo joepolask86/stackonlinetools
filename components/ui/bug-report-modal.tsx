@@ -43,6 +43,9 @@ export function BugReportModal({ isOpen, onClose, toolName, toolId }: BugReportM
         setIsSubmitting(false);
         onClose();
         
+        // Dispatch event to refresh user bug reports
+        window.dispatchEvent(new CustomEvent('userBugReportsUpdated'));
+        
         // Show success message
         toast({
           title: "Bug Report Submitted",

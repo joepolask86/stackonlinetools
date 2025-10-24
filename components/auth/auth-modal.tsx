@@ -21,9 +21,11 @@ export function AuthModal({ open, onOpenChange, mode }: AuthModalProps) {
   const [name, setName] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [loadingProvider, setLoadingProvider] = useState<string | null>(null);
   const { toast } = useToast();
 
   const handleSocialLogin = async (provider: string) => {
+    setLoadingProvider(provider);
     setIsLoading(true);
     try {
       // TODO: Implement social login with Better-Auth
@@ -40,6 +42,7 @@ export function AuthModal({ open, onOpenChange, mode }: AuthModalProps) {
       });
     } finally {
       setIsLoading(false);
+      setLoadingProvider(null);
     }
   };
 
@@ -106,8 +109,17 @@ export function AuthModal({ open, onOpenChange, mode }: AuthModalProps) {
               onClick={() => handleSocialLogin("google")}
               disabled={isLoading}
             >
-              <Chrome className="mr-3 h-5 w-5" />
-              Continue with Google
+              {loadingProvider === "google" ? (
+                <>
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-600 mr-3"></div>
+                  Connecting to Google...
+                </>
+              ) : (
+                <>
+                  <Chrome className="mr-3 h-5 w-5" />
+                  Continue with Google
+                </>
+              )}
             </Button>
             
             <Button
@@ -116,8 +128,17 @@ export function AuthModal({ open, onOpenChange, mode }: AuthModalProps) {
               onClick={() => handleSocialLogin("github")}
               disabled={isLoading}
             >
-              <Github className="mr-3 h-5 w-5" />
-              Continue with GitHub
+              {loadingProvider === "github" ? (
+                <>
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-600 mr-3"></div>
+                  Connecting to GitHub...
+                </>
+              ) : (
+                <>
+                  <Github className="mr-3 h-5 w-5" />
+                  Continue with GitHub
+                </>
+              )}
             </Button>
             
             <Button
@@ -126,8 +147,17 @@ export function AuthModal({ open, onOpenChange, mode }: AuthModalProps) {
               onClick={() => handleSocialLogin("twitter")}
               disabled={isLoading}
             >
-              <Twitter className="mr-3 h-5 w-5" />
-              Continue with Twitter
+              {loadingProvider === "twitter" ? (
+                <>
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-600 mr-3"></div>
+                  Connecting to Twitter...
+                </>
+              ) : (
+                <>
+                  <Twitter className="mr-3 h-5 w-5" />
+                  Continue with Twitter
+                </>
+              )}
             </Button>
             
             <Button
@@ -136,8 +166,17 @@ export function AuthModal({ open, onOpenChange, mode }: AuthModalProps) {
               onClick={() => handleSocialLogin("facebook")}
               disabled={isLoading}
             >
-              <Facebook className="mr-3 h-5 w-5" />
-              Continue with Facebook
+              {loadingProvider === "facebook" ? (
+                <>
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-600 mr-3"></div>
+                  Connecting to Facebook...
+                </>
+              ) : (
+                <>
+                  <Facebook className="mr-3 h-5 w-5" />
+                  Continue with Facebook
+                </>
+              )}
             </Button>
           </div>
 

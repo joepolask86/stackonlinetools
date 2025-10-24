@@ -83,6 +83,33 @@ export function useUserBugReports({ userId, limit = 10 }: UseUserBugReportsOptio
     fetchBugReports(1, false);
   }, [fetchBugReports]);
 
+  // Listen for bug report updates and cache invalidation
+  useEffect(() => {
+    const handleBugReportsUpdate = () => {
+      fetchBugReports(1, false);
+    };
+
+    const handleCacheInvalidation = () => {
+      // Force immediate refresh without cache
+      fetchBugReports(1, false);
+    };
+
+    const handleAuthStateChange = () => {
+      // Refresh when auth state changes
+      fetchBugReports(1, false);
+    };
+
+    window.addEventListener('userBugReportsUpdated', handleBugReportsUpdate);
+    window.addEventListener('invalidateUserBugReports', handleCacheInvalidation);
+    window.addEventListener('authStateChanged', handleAuthStateChange);
+    
+    return () => {
+      window.removeEventListener('userBugReportsUpdated', handleBugReportsUpdate);
+      window.removeEventListener('invalidateUserBugReports', handleCacheInvalidation);
+      window.removeEventListener('authStateChanged', handleAuthStateChange);
+    };
+  }, [fetchBugReports]);
+
   return {
     bugReports,
     isLoading,

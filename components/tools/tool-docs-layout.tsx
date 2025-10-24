@@ -6,7 +6,7 @@ import { Header } from "@/components/layout/header";
 import { MinimalFooter } from "@/components/layout/minimal-footer";
 import { categories, getImplementedToolsByCategory } from "@/lib/tool-registry";
 import * as Icons from "lucide-react";
-import { LucideIcon, Share2, Heart, Bug, ChevronDown, ChevronRight, Menu, X, Dot } from "lucide-react";
+import { LucideIcon, Share2, Heart, Bug, ChevronDown, ChevronRight, Menu, X } from "lucide-react";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { ShareModal } from "@/components/ui/share-modal";
@@ -373,8 +373,9 @@ export function ToolDocsLayout({ metadata, children }: ToolDocsLayoutProps) {
                            <span className="font-medium text-lg text-gray-900">
                              {comment.user.name || 'Anonymous'}
                            </span>
-                           <span className="text-md text-gray-500 flex items-center space-x-1">
-                             <Dot className="h-8 w-8 text-gray-500" /> {formatDate(comment.createdAt)}
+                           <span className="text-md text-gray-500 flex items-center space-x-2">
+                             <svg fill="#686868ff" width="8px" height="8px" className="mr-2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18a6 6 0 100-12 6 6 0 000 12z"/></svg> {formatDate(comment.createdAt)}
+                             
                            </span>
                          </div>
                          <p className="text-gray-700 text-lg whitespace-pre-wrap">{comment.content}</p>

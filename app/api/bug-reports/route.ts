@@ -3,6 +3,7 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { bugReports } from "@/lib/db/schema";
 import { eq, and } from "drizzle-orm";
+import { UserCacheManager } from "@/lib/cache";
 
 export async function POST(request: NextRequest) {
   try {
@@ -32,6 +33,9 @@ export async function POST(request: NextRequest) {
       severity: "medium", // Default severity
       status: "open", // Default status
     }).returning();
+
+    // Invalidate user's bug reports cache to ensure immediate updates
+    await UserCacheManager.invalidateBugReportsCache(session.user.id);
 
     return NextResponse.json({
       message: "Bug report submitted successfully",
@@ -76,7 +80,14 @@ export async function GET(request: NextRequest) {
         .where(eq(bugReports.userId, session.user.id));
     }
 
-    return NextResponse.json({ bugReports: userBugReports });
+    const response = NextResponse.json({ bugReports: userBugReports });
+
+    // Add cache-busting headers
+    response.headers.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+    response.headers.set('Pragma', 'no-cache');
+    response.headers.set('Expires', '0');
+
+    return response;
   } catch (error) {
     console.error("Error fetching bug reports:", error);
     return NextResponse.json(

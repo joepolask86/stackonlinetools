@@ -75,9 +75,36 @@ export function useUserComments({ userId, limit = 10 }: UseUserCommentsOptions) 
     fetchComments(1, false);
   }, [fetchComments]);
 
-  // Load comments on mount
+  // Load comments on mount and when userId changes
   useEffect(() => {
     fetchComments(1, false);
+  }, [fetchComments]);
+
+  // Listen for comment updates and cache invalidation
+  useEffect(() => {
+    const handleCommentsUpdate = () => {
+      fetchComments(1, false);
+    };
+
+    const handleCacheInvalidation = () => {
+      // Force immediate refresh without cache
+      fetchComments(1, false);
+    };
+
+    const handleAuthStateChange = () => {
+      // Refresh when auth state changes
+      fetchComments(1, false);
+    };
+
+    window.addEventListener('userCommentsUpdated', handleCommentsUpdate);
+    window.addEventListener('invalidateUserComments', handleCacheInvalidation);
+    window.addEventListener('authStateChanged', handleAuthStateChange);
+    
+    return () => {
+      window.removeEventListener('userCommentsUpdated', handleCommentsUpdate);
+      window.removeEventListener('invalidateUserComments', handleCacheInvalidation);
+      window.removeEventListener('authStateChanged', handleAuthStateChange);
+    };
   }, [fetchComments]);
 
   return {

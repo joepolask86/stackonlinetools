@@ -62,7 +62,14 @@ export async function GET(request: NextRequest) {
     // Cache the result
     await UserCacheManager.cacheBugReports(userId, page, limit, response);
 
-    return NextResponse.json(response);
+    const jsonResponse = NextResponse.json(response);
+
+    // Add cache-busting headers
+    jsonResponse.headers.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+    jsonResponse.headers.set('Pragma', 'no-cache');
+    jsonResponse.headers.set('Expires', '0');
+
+    return jsonResponse;
   } catch (error) {
     console.error('Error fetching user bug reports:', error);
     return NextResponse.json({ error: 'Failed to fetch user bug reports' }, { status: 500 });
