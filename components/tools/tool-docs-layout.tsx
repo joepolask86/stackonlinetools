@@ -74,6 +74,13 @@ export function ToolDocsLayout({ metadata, children }: ToolDocsLayoutProps) {
   };
 
   const handleBugReportClick = () => {
+    if (!isAuthenticated) {
+      // Redirect to login with current page as redirect
+      const currentUrl = typeof window !== 'undefined' ? window.location.pathname : '';
+      window.location.href = `/login?redirect=${encodeURIComponent(currentUrl)}`;
+      return;
+    }
+    
     setIsBugReportModalOpen(true);
   };
 
